@@ -1,4 +1,5 @@
 import { Bike, BedDouble, ExternalLink } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { mapDirections, mapSearch } from './route-data';
 
@@ -70,8 +71,24 @@ export default function FujiLakeside({
 }: {
   onPurchase: (id: string) => void;
 }) {
+  const guideRef = useRef<HTMLDetailsElement>(null);
+  useEffect(() => {
+    if (
+      new URLSearchParams(window.location.search).get('section') !==
+      'fuji-lakeside'
+    )
+      return;
+    const frame = requestAnimationFrame(() => {
+      const guide = guideRef.current;
+      if (!guide) return;
+      guide.open = true;
+      guide.querySelector('summary')?.focus({ preventScroll: true });
+      guide.scrollIntoView({ behavior: 'instant', block: 'start' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, []);
   return (
-    <details className="fuji-lakeside" id="fuji-lakeside" open>
+    <details className="fuji-lakeside" id="fuji-lakeside" ref={guideRef} open>
       <summary>
         <span className="eyebrow">5–6 ноября · одна ночь · двое взрослых</span>
         <strong>Рёкан у озера + утро на велосипедах</strong>

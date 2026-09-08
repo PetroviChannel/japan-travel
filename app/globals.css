@@ -3193,11 +3193,51 @@ body:has(.story-dialog) [data-slot='dialog-overlay'] {
   }
 }
 .fuji-lakeside {
+  scroll-margin-top: 100px;
   margin: 24px 0;
   border: 1px solid var(--border);
   border-radius: 18px;
   background: var(--card);
   overflow-wrap: anywhere;
+}
+.fuji-guide-shortcut {
+  width: 100%;
+  height: auto;
+  min-height: 74px;
+  padding: 16px 20px;
+  display: flex;
+  gap: 14px;
+  justify-content: flex-start;
+  white-space: normal;
+  text-align: left;
+  border-color: var(--primary);
+  background: var(--accent);
+}
+.fuji-guide-shortcut > span {
+  flex: 1;
+  min-width: 0;
+}
+.fuji-guide-shortcut strong {
+  display: block;
+  font-size: 1rem;
+}
+.fuji-guide-shortcut small {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  color: var(--muted-foreground);
+  line-height: 1.5;
+}
+.fuji-guide-shortcut > svg {
+  flex-shrink: 0;
+  color: var(--primary);
+}
+.fuji-location-note {
+  padding: 14px 18px;
+  margin: 14px 0;
+  background: var(--accent);
+  border-radius: 12px;
+  line-height: 1.6;
 }
 .fuji-lakeside > summary {
   padding: 22px 24px;

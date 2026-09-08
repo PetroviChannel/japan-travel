@@ -12,6 +12,7 @@ import {
   Search,
   CheckCheck,
   RefreshCw,
+  Bike,
 } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
@@ -314,6 +315,28 @@ export default function Planner() {
         ?.scrollIntoView({ behavior: 'smooth' }),
     );
   };
+  const showFujiGuide = () => {
+    const url = new URL(window.location.href);
+    url.searchParams.set('tab', 'route');
+    url.searchParams.set('day', '2026-11-05');
+    url.searchParams.set('section', 'fuji-lakeside');
+    url.searchParams.delete('variant');
+    url.searchParams.delete('view');
+    window.history.replaceState(window.history.state, '', url);
+    flushSync(() => {
+      setActiveTab('route');
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    });
+    requestAnimationFrame(() => {
+      const guide = document.getElementById(
+        'fuji-lakeside',
+      ) as HTMLDetailsElement | null;
+      if (!guide) return;
+      guide.open = true;
+      guide.querySelector('summary')?.focus({ preventScroll: true });
+      guide.scrollIntoView({ behavior: 'instant', block: 'start' });
+    });
+  };
   const recordsRef = useRef(records),
     ready = useRef(false),
     saving = useRef(false),
@@ -503,6 +526,21 @@ export default function Planner() {
           </TabsTrigger>
           <TabsTrigger value="deals">Где дешевле</TabsTrigger>
         </TabsList>
+        <Button
+          className="fuji-guide-shortcut"
+          variant="outline"
+          onClick={showFujiGuide}
+        >
+          <Bike size={22} aria-hidden="true" />
+          <span>
+            <strong>Рёканы у Фудзи и велосипеды</strong>
+            <small>
+              Кавагутико · основной маршрут · 5–6 ноября · от 15 101 ₽ за ночь
+              на двоих
+            </small>
+          </span>
+          <ArrowUpRight size={19} aria-hidden="true" />
+        </Button>
         <TabsContent value="purchases">
           <section className="overview">
             <div className="budget-surface">

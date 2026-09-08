@@ -211,6 +211,13 @@ export default function TripVariants() {
           </p>
         </div>
       </div>
+      {selected === 'hakone' && (
+        <p className="fuji-location-note">
+          Здесь показан Хаконе и озеро Аси. Рёканы у озера Кавагутико и
+          велопрогулка с видом на Фудзи находятся в основном маршруте: откройте
+          кнопку «Рёканы у Фудзи и велосипеды» над этим разделом.
+        </p>
+      )}
       <details className="compact-note">
         <summary>Как сравнивать варианты с основным планом</summary>
         <div className="variant-baseline">
