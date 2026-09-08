@@ -1,0 +1,8 @@
+node_modules/
+dist/
+work/
+.env*
+*.tsbuildinfo
+.DS_Store
+*budget-backup*.json
+
