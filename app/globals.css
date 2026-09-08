@@ -3192,6 +3192,162 @@ body:has(.story-dialog) [data-slot='dialog-overlay'] {
     padding: 0 16px 16px;
   }
 }
+.fuji-lakeside {
+  margin: 24px 0;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--card);
+  overflow-wrap: anywhere;
+}
+.fuji-lakeside > summary {
+  padding: 22px 24px;
+  cursor: pointer;
+  border-left: 4px solid var(--primary);
+  border-radius: 18px;
+}
+.fuji-lakeside > summary > * {
+  display: block;
+}
+.fuji-lakeside > summary strong {
+  font-size: 1.3rem;
+  margin: 6px 0;
+}
+.fuji-lakeside > summary > span:last-child,
+.fuji-lakeside .fuji-small {
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+.fuji-lakeside-body {
+  padding: 0 24px 24px;
+}
+.fuji-lakeside p {
+  margin: 12px 0;
+  line-height: 1.65;
+}
+.fuji-hotel-grid,
+.fuji-plan-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+.fuji-hotel-grid article,
+.fuji-plan-grid > section,
+.fuji-rental {
+  min-width: 0;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+}
+.fuji-hotel-grid article:first-child {
+  border-color: var(--primary);
+  background: var(--accent);
+}
+.fuji-lakeside h4 {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-weight: 650;
+  margin: 10px 0;
+  font-size: 1.05rem;
+}
+.fuji-lakeside h4 svg {
+  flex-shrink: 0;
+}
+.fuji-price {
+  display: block;
+  margin: 14px 0 4px;
+  font-size: 1.6rem;
+}
+.fuji-price small {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--muted-foreground);
+}
+.fuji-lakeside article summary,
+.fuji-backup > summary {
+  cursor: pointer;
+  padding: 12px 0;
+  font-weight: 550;
+}
+.fuji-backup {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+}
+.fuji-links,
+.fuji-budget-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+}
+.fuji-lakeside a {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 0;
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 0.875rem;
+}
+.fuji-lakeside a svg {
+  flex-shrink: 0;
+}
+.fuji-plan-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.fuji-mini-plan {
+  list-style: none;
+  padding: 0;
+}
+.fuji-mini-plan li {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 10px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.fuji-mini-plan li b {
+  font-variant-numeric: tabular-nums;
+  color: var(--primary);
+}
+.fuji-rental {
+  background: var(--muted);
+}
+@media (max-width: 1100px) {
+  .fuji-hotel-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 700px) {
+  .fuji-hotel-grid,
+  .fuji-plan-grid {
+    grid-template-columns: 1fr;
+  }
+  .fuji-lakeside > summary {
+    padding: 18px 16px;
+  }
+  .fuji-lakeside-body {
+    padding: 0 16px 16px;
+  }
+  .fuji-hotel-grid article,
+  .fuji-plan-grid > section,
+  .fuji-rental {
+    padding: 16px;
+  }
+  .fuji-mini-plan li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .fuji-budget-actions > button {
+    width: 100%;
+    min-height: 44px;
+    white-space: normal;
+    height: auto;
+    padding: 10px;
+  }
+}
 .shared-budget-heading {
   display: flex;
   align-items: flex-start;

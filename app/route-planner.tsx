@@ -14,6 +14,7 @@ import {
   Play,
   Shuffle,
   List,
+  Bike,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -32,6 +33,7 @@ import { purchases } from './trip-data';
 import type { SavedPurchase } from './purchase-state';
 import DayStories from './day-stories';
 import OkinawaBases from './okinawa-bases';
+import FujiLakeside from './fuji-lakeside';
 import { PlaceImage, PhotoCredit } from './place-photo';
 import {
   photoForDay,
@@ -276,6 +278,9 @@ export default function RoutePlanner({
         </div>
         <PhotoCredit photo={photoForDay(day)} />
       </div>
+      {!variantId && ['2026-11-05', '2026-11-06'].includes(day.date) && (
+        <FujiLakeside onPurchase={onPurchase} />
+      )}
       <div className="route-day-title">
         <div>
           <h3>Программа дня</h3>
@@ -353,6 +358,8 @@ export default function RoutePlanner({
                   <div className="stop-leg">
                     {s.mode === 'driving' ? (
                       <CarFront size={16} />
+                    ) : s.mode === 'bicycling' ? (
+                      <Bike size={16} />
                     ) : s.mode === 'transit' ? (
                       <TrainFront size={16} />
                     ) : (
@@ -377,7 +384,9 @@ export default function RoutePlanner({
                             ? 'Маршрут для такси'
                             : s.mode === 'walking'
                               ? 'Как пройти'
-                              : 'Как доехать'}
+                              : s.mode === 'bicycling'
+                                ? 'На велосипеде'
+                                : 'Как доехать'}
                         </External>
                       )}
                   </div>

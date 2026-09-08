@@ -65,10 +65,10 @@ export function photoForDay(d: RouteDay) {
           ? 'miyajima'
           : /Хаконе/.test(city)
             ? 'hakone'
-            : /Киото/.test(city)
-              ? 'gion'
-              : /Фудзи|Кавагутико/.test(city)
-                ? 'fuji'
+            : /Фудзи|Кавагутико/.test(city)
+              ? 'fuji'
+              : /Киото/.test(city)
+                ? 'gion'
                 : /Камакура/.test(city)
                   ? 'kamakura'
                   : /Коясан/.test(city)
