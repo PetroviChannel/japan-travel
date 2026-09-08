@@ -52,6 +52,8 @@ This small two-person design has no account recovery, participant identities, pe
 
 ## Verification
 
-The SQL was executed and reapplied in PGlite 0.5.8 (embedded PostgreSQL), with 23 checks covering role privileges, RLS, secret rejection, normalization, bootstrap timestamps, restoring older backups into untouched rows, conflict/no-write behavior, edits to separate purchases, and input limits. PGlite has one connection, so stale simultaneous edits were simulated sequentially. A live Supabase REST request and two independent database sessions still need deployment verification.
+The SQL was executed and reapplied in PGlite 0.5.8 (embedded PostgreSQL), with 23 checks covering role privileges, RLS, secret rejection, normalization, bootstrap timestamps, restoring older backups into untouched rows, conflict/no-write behavior, edits to separate purchases, and input limits.
+
+On 8 September 2026, the deployed Supabase project passed 7 live REST checks using two separate HTTPS clients: room creation, matching reads, concurrent writes to different purchases, a same-purchase race with exactly one winner and one conflict, generic denial for incorrect secrets and nonexistent rooms, blocked direct private-table reads, and final convergence without changes from denied requests. No service-role key or database password was used by either client.
 
 Official references: [Supabase function privileges and fixed search paths](https://supabase.com/docs/guides/database/functions), [API grants and RLS](https://supabase.com/docs/guides/api/securing-your-api), [publishable keys and request headers](https://supabase.com/docs/guides/getting-started/api-keys), [built-in UUID generation](https://supabase.com/docs/guides/database/extensions/uuid-ossp), and [PostgreSQL SHA-256](https://www.postgresql.org/docs/17/functions-binarystring.html).
