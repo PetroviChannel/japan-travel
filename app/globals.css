@@ -3082,6 +3082,114 @@ body:has(.story-dialog) [data-slot='dialog-overlay'] {
   margin: 14px 0;
   padding: 22px;
 }
+.okinawa-bases {
+  margin: 0 0 24px;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--primary);
+  border-radius: 14px;
+  background: var(--card);
+  font-size: 1rem;
+  overflow-wrap: anywhere;
+}
+.okinawa-bases summary {
+  cursor: pointer;
+  padding: 20px 24px;
+}
+.okinawa-bases summary > * {
+  display: block;
+}
+.okinawa-bases summary strong {
+  margin: 5px 0;
+  font-size: 1.125rem;
+}
+.okinawa-bases summary > span:last-child,
+.okinawa-bases .okinawa-quote-note {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+.okinawa-bases-body {
+  padding: 0 24px 24px;
+}
+.okinawa-bases-body > p {
+  margin: 12px 0;
+}
+.okinawa-bases-body > h3 {
+  margin-top: 26px;
+  font-size: 1.125rem;
+  font-weight: 650;
+}
+.okinawa-base-grid,
+.okinawa-hotel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 20px 0;
+}
+.okinawa-hotel-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.okinawa-bases article {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+}
+.okinawa-bases article p {
+  margin: 10px 0;
+}
+.okinawa-bases article h3,
+.okinawa-bases article h4 {
+  font-weight: 650;
+  margin: 6px 0;
+}
+.okinawa-hotel-grid article > span {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+.okinawa-hotel-grid article > strong {
+  font-size: 1.5rem;
+}
+.okinawa-bases .okinawa-base-recommended {
+  background: var(--accent);
+  border-color: var(--primary);
+}
+.okinawa-bases a {
+  display: inline-block;
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 10px 0;
+  font-size: 0.875rem;
+}
+.okinawa-mini-days {
+  padding-left: 24px;
+}
+.okinawa-mini-days li {
+  padding: 12px 0 12px 8px;
+}
+.okinawa-mini-days li p {
+  margin-top: 6px;
+}
+.okinawa-map-links {
+  display: flex;
+  gap: 12px 24px;
+  flex-wrap: wrap;
+}
+@media (max-width: 900px) {
+  .okinawa-base-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .okinawa-hotel-grid {
+    grid-template-columns: 1fr;
+  }
+  .okinawa-bases summary {
+    padding: 16px;
+  }
+  .okinawa-bases-body {
+    padding: 0 16px 16px;
+  }
+}
 .shared-budget-heading {
   display: flex;
   align-items: flex-start;

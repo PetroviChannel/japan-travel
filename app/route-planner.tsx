@@ -31,6 +31,7 @@ import {
 import { purchases } from './trip-data';
 import type { SavedPurchase } from './purchase-state';
 import DayStories from './day-stories';
+import OkinawaBases from './okinawa-bases';
 import { PlaceImage, PhotoCredit } from './place-photo';
 import {
   photoForDay,
@@ -183,6 +184,7 @@ export default function RoutePlanner({
           </p>
         </div>
       </div>
+      {!variantId && <OkinawaBases />}
       <div
         className="photo-day-rail"
         ref={railRef}
