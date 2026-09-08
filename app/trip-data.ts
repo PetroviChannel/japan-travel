@@ -334,8 +334,8 @@ purchases.push(
     '5–6 ноября',
     'Фудзи',
     2000,
-    'Резерв на местные автобусы на двоих. Если подходит бесплатный трансфер онсэна, расходы будут ниже.',
-    'https://www.fuji-yurari.jp/',
+    'Резерв на местные автобусы на двоих. Бесплатный шаттл Yurari — по заявке через RESERVA минимум за час и после подтверждения; от остановки №10 Kawaguchiko Station. Обратно записаться на стойке онсэна.',
+    'https://reserva.be/fuji_yurari/reserve?mode=service_staff&search_evt_no=37eJwzNjE1srAEAARPAUA',
     'budget',
   ),
   travel(
