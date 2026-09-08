@@ -27,7 +27,7 @@ const privateOnsenHotels = [
       'Заезд 15:00–18:00, выезд до 10:00. Бесплатная отмена до 31 октября 23:59 по времени отеля, затем ступенчатый штраф. Без купона: 28 358,86 ₽ онлайн + ¥300 в отеле.',
     url: 'https://ru.trip.com/hotels/hakone-hotel-detail-8649664/susukinohara-ichinoyu/?checkin=2026-11-05&checkout=2026-11-06&adult=2&crn=1&curr=RUB',
     official:
-      'https://www.ichinoyu.co.jp/facilities/susuki/susuki-room-honkan/honkan/',
+      'https://www.ichinoyu.co.jp/facilities/susuki/susuki-room-honkan/page-0/',
     accessUrl: 'https://www.ichinoyu.co.jp/facilities/susuki/susuki-access/',
   },
   {
