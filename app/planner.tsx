@@ -533,10 +533,9 @@ export default function Planner() {
         >
           <Bike size={22} aria-hidden="true" />
           <span>
-            <strong>Рёканы у Фудзи и велосипеды</strong>
+            <strong>Рёканы, личный онсэн и велосипеды</strong>
             <small>
-              Кавагутико · 5–6 ноября · татами и футоны · от 19 252 ₽ за ночь на
-              двоих
+              5–6 ноября · личный онсэн в Хаконе от 28 526 ₽ · варианты у озера
             </small>
           </span>
           <ArrowUpRight size={19} aria-hidden="true" />
