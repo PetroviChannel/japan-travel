@@ -533,9 +533,9 @@ export default function Planner() {
         >
           <Bike size={22} aria-hidden="true" />
           <span>
-            <strong>Рёканы, личный онсэн и велосипеды</strong>
+            <strong>Кавагутико: рёканы и онсэны на карте</strong>
             <small>
-              5–6 ноября · личный онсэн в Хаконе от 28 526 ₽ · варианты у озера
+              Футоны · расстояния и цены · 5–6 ноября от 15 530 ₽ на двоих
             </small>
           </span>
           <ArrowUpRight size={19} aria-hidden="true" />
