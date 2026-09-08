@@ -3110,10 +3110,12 @@ body:has(.story-dialog) [data-slot='dialog-overlay'] {
 .okinawa-bases-body {
   padding: 0 24px 24px;
 }
-.okinawa-bases-body > p {
+.okinawa-bases-body > p,
+.okinawa-bases-body > section > p {
   margin: 12px 0;
 }
-.okinawa-bases-body > h3 {
+.okinawa-bases-body > h3,
+.okinawa-bases-body > section > h3 {
   margin-top: 26px;
   font-size: 1.125rem;
   font-weight: 650;

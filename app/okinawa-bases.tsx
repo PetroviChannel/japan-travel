@@ -4,6 +4,12 @@ const smile =
   'https://ru.trip.com/hotels/naha-hotel-detail-711296/smile-hotel-okinawanaha/?checkin=2026-10-22&checkout=2026-10-25&adult=2&crn=1&curr=RUB';
 const terrace =
   'https://ru.trip.com/hotels/chatan-hotel-detail-81388816/terrace-resort-mihama/?checkin=2026-10-25&checkout=2026-10-28&adult=2&crn=1&curr=RUB';
+const luana =
+  'https://ru.trip.com/hotels/chatan-hotel-detail-13911923/luana-uakoko-resort-hotel/?checkin=2026-10-25&checkout=2026-10-28&adult=2&crn=1&curr=RUB';
+const comfort =
+  'https://ru.trip.com/hotels/chatan-hotel-detail-22158064/comfort-plus/?checkin=2026-10-25&checkout=2026-10-28&adult=2&crn=1&curr=RUB';
+const monpa =
+  'https://ru.trip.com/hotels/chatan-hotel-detail-2803849/condominium-hotel-monpa/?checkin=2026-10-25&checkout=2026-10-28&adult=2&crn=1&curr=RUB';
 const gateway = 'https://chatan-gateway.com/en/';
 const northBus = 'https://chatan-gateway.com/en/north-express/';
 function Link({ href, children }: { href: string; children: React.ReactNode }) {
@@ -35,6 +41,99 @@ export default function OkinawaBases() {
           октября: сохранённые покупки и пять альтернатив оно автоматически не
           меняет.
         </p>
+        <section aria-labelledby="american-village-hotel-update">
+          <h3 id="american-village-hotel-update">
+            Ближе к Американской деревне: уточнение 8 сентября
+          </h3>
+          <p>
+            Лучший целевой район — Mihama вокруг American Village, Sunset Beach
+            и Chatan Gateway. Kuwae сразу за шоссе 58 — компромисс ради цены:
+            пеший путь прокладывать через оборудованные переходы. Три ночи в
+            Нахе — поздний прилёт, один день города и один день Токасики. На
+            саму Наху можно выделить 1–2 полных дня: Сюри, Тамаудун, Цубоя,
+            Макиси, Кокусай-дори, а при дополнительном времени — музей Окинавы и
+            сад Фукусиэн. Остров 24 октября сохраняем.
+          </p>
+          <p className="okinawa-quote-note">
+            25–28 октября 2026 · три ночи · один номер на двух взрослых · свой
+            санузел. У Luana проверен итог на экране оформления; у Comfort Plus
+            и Monpa — цены в списке номеров, окончательное оформление ещё не
+            проверено. Цены могут измениться. Пути Luana и Terrace сверены в
+            Google Maps; время для остальных отелей — ориентир.
+          </p>
+          <div className="okinawa-hotel-grid">
+            <article>
+              <span>Итог на экране оформления</span>
+              <h4>Luana Uakoko Resort Hotel</h4>
+              <strong>17 294,43 ₽</strong>
+              <p>
+                Бывший Emi Full Resort. Double, 23 м², кухня и стиральная
+                машина. Оценка 8,6; чистота 9,0. Бесплатная отмена до 18 октября
+                23:59. До входной части American Village 7–10 минут пешком; до
+                прибрежных кафе ещё пройти по району. До Sunset Beach около 20
+                минут: 1,4 км по альтернативному пути. Более короткий путь
+                Google Maps помечает как частный или с ограниченным доступом.
+              </p>
+              <p>
+                <b>Возвратный залог: ¥50 000 кредитной картой.</b> На экране
+                оформления это около 28 012 ₽; срок возврата — 2–4 недели. Это
+                не расход на проживание, но нужны дополнительные доступные
+                деньги и кредитная карта, которую принимает отель.
+              </p>
+              <Link href={luana}>Номер и условия залога</Link>
+              {' · '}
+              <Link
+                href={mapDirections(
+                  'Luana Uakoko Resort Hotel Chatan',
+                  'Mihama American Village Chatan',
+                  'walking',
+                )}
+              >
+                К American Village
+              </Link>
+              {' · '}
+              <Link
+                href={mapDirections(
+                  'Luana Uakoko Resort Hotel Chatan',
+                  'Sunset Beach Chatan',
+                  'walking',
+                )}
+              >
+                К пляжу: выбрать путь 1,4 км
+              </Link>
+            </article>
+            <article>
+              <span>Цена в списке номеров</span>
+              <h4>Comfort Plus</h4>
+              <strong>28 230 ₽</strong>
+              <p>
+                Double, 23 м², собственная ванная. Оценка 9,4; чистота 9,5.
+                Бесплатная отмена до 24 октября 23:59. Ориентир: 10–15 минут до
+                American Village, 15–20 минут до Sunset Beach.
+              </p>
+              <Link href={comfort}>Проверить итог и условия</Link>
+            </article>
+            <article>
+              <span>Цена в списке номеров</span>
+              <h4>Condominium Hotel Monpa</h4>
+              <strong>38 796 ₽</strong>
+              <p>
+                Ocean Twin, 34 м², невозвратный тариф. Ориентир: 1–5 минут до
+                American Village и 1–3 минуты до Sunset Beach. За расположение
+                непосредственно у пляжа заметно доплачиваем.
+              </p>
+              <Link href={monpa}>Проверить итог и условия</Link>
+            </article>
+          </div>
+          <p>
+            До одной и той же входной точки American Village: Luana — 7–10 минут
+            пешком, Terrace — 16–20 минут; до прибрежной части Depot Island идти
+            дольше. Luana примерно на 496 ₽ дешевле Terrace Resort Mihama за 17
+            790,30 ₽, но подходит только при приемлемых условиях залога. Terrace
+            остаётся разумной рекомендацией по общей цене и близости пляжа
+            Араха.
+          </p>
+        </section>
         <div className="okinawa-base-grid">
           <article>
             <span className="eyebrow">22–25 октября · город и острова</span>
@@ -63,8 +162,9 @@ export default function OkinawaBases() {
             </p>
             <p>
               Terrace Resort Mihama расположен у Арахи: ориентир 5–10 минут до
-              пляжа и 15–25 минут до Американской деревни. Это пешая прогулка, а
-              не отель непосредственно внутри Village.
+              пляжа и 16–20 минут до входной части Американской деревни; до
+              набережной Depot Island идти дольше. Это пешая прогулка, а не
+              отель непосредственно внутри Village.
             </p>
             <Link href="https://visitokinawajapan.com/destinations/okinawa-main-island/central-okinawa-main-island/chatan/">
               Что посмотреть в Чатане
@@ -187,12 +287,17 @@ export default function OkinawaBases() {
               сверить при открытии продаж за месяц.
             </p>
             <p>
-              Terrace Resort Mihama отсутствует в списке отелей с 50% скидкой на
-              этот автобус. Не путать его с MB GALLERY by The Terrace Hotels.
+              Terrace Resort Mihama и Luana Uakoko отсутствуют в списке отелей с
+              50% скидкой на этот автобус. Не путать Terrace с MB GALLERY by The
+              Terrace Hotels.
             </p>
             <Link href={gateway}>Транспорт из Чатана</Link>
             {' · '}
             <Link href={northBus}>Условия автобуса в Churaumi</Link>
+            {' · '}
+            <Link href="https://monpa.co.jp/en/">
+              Подтверждение тарифа ¥2 400 в одну сторону
+            </Link>
           </article>
         </div>
         <p>
