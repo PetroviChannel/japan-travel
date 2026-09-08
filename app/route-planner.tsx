@@ -22,13 +22,13 @@ import {
   NativeSelectOption,
 } from '@/components/ui/native-select';
 import {
-  routeDays as defaultDays,
   mapDirections,
   mapEmbed,
   mapSearch,
   type RouteStop,
   type RouteDay,
 } from './route-data';
+import { baseRouteDays as defaultDays } from './base-route-days';
 import { purchases } from './trip-data';
 import type { SavedPurchase } from './purchase-state';
 import DayStories from './day-stories';

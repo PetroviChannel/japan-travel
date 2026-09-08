@@ -535,8 +535,8 @@ export default function Planner() {
           <span>
             <strong>Рёканы у Фудзи и велосипеды</strong>
             <small>
-              Кавагутико · основной маршрут · 5–6 ноября · от 15 101 ₽ за ночь
-              на двоих
+              Кавагутико · 5–6 ноября · татами и футоны · от 19 252 ₽ за ночь на
+              двоих
             </small>
           </span>
           <ArrowUpRight size={19} aria-hidden="true" />
