@@ -22,7 +22,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
 import { purchases, groups, kindLabels, type Purchase } from './trip-data';
 import {
-  initialState,
+  mergeCurrentDefaults,
   summarize,
   validatePurchase,
   type SavedPurchase,
@@ -48,8 +48,7 @@ export const rub = (n: number) =>
     currency: 'RUB',
     maximumFractionDigits: 0,
   }).format(n);
-const defaults = () =>
-  Object.fromEntries(purchases.map((p) => [p.id, initialState(p)]));
+const defaults = () => mergeCurrentDefaults({});
 class PurchaseConflict extends Error {
   constructor(readonly current: SavedPurchase) {
     super(
@@ -132,6 +131,9 @@ function PurchaseCard({
         <small>
           {record.actual !== null ? 'Ваша сумма' : 'План'} · на двоих
         </small>
+        {record.plan !== x.price && (
+          <small>Цена проверки: {rub(x.price)} · ваш план сохранён</small>
+        )}
         {(record.customUrl || x.link) && (
           <a
             className="purchase-link"
@@ -357,7 +359,7 @@ export default function Planner() {
     )
       return false;
     latestSnapshot.current = { room: result.room, revision: result.revision };
-    recordsRef.current = { ...defaults(), ...result.purchases };
+    recordsRef.current = mergeCurrentDefaults(result.purchases);
     return true;
   }, []);
   const load = useCallback(
@@ -533,10 +535,8 @@ export default function Planner() {
         >
           <Bike size={22} aria-hidden="true" />
           <span>
-            <strong>Кавагутико: рёканы и онсэны на карте</strong>
-            <small>
-              Футоны · расстояния и цены · 5–6 ноября от 15 530 ₽ на двоих
-            </small>
+            <strong>Наш рёкан на Кавагутико: Yamagishi</strong>
+            <small>5–6 ноября · футоны и онсэн · 17 427 ₽ на двоих</small>
           </span>
           <ArrowUpRight size={19} aria-hidden="true" />
         </Button>

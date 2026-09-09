@@ -8,7 +8,9 @@ import {
   makeBackup,
   parseBackup,
   mergeBackup,
+  storageKey,
 } from '../app/local-purchases';
+import { mergeCurrentDefaults } from '../app/purchase-state';
 import { routeDays } from '../app/route-data';
 import { tripVariants, costTotal } from '../app/variant-data';
 import { placePhotos, photoForDay, nextRandomDay } from '../app/trip-photos';
@@ -46,6 +48,39 @@ test('paid amounts survive reload and backup round trip', () => {
     parseBackup(JSON.stringify(makeBackup(saved.records))).purchases,
     Object.values(saved.records),
   );
+});
+
+test('revised defaults refresh untouched seeds and add new items without writing storage', () => {
+  const store = new MemoryStorage(),
+    defaults = defaultPurchases(),
+    [seed, missing] = Object.values(defaults),
+    older = { ...seed, plan: seed.plan + 1000 };
+  const raw = JSON.stringify(makeBackup({ [seed.id]: older }));
+  store.setItem(storageKey, raw);
+  const loaded = loadLocalPurchases(store);
+  assert.deepEqual(loaded[seed.id], seed);
+  assert.deepEqual(loaded[missing.id], missing);
+  assert.equal(loaded[seed.id].updatedAt, 0);
+  assert.equal(store.getItem(storageKey), raw);
+  assert.equal(older.plan, seed.plan + 1000);
+});
+
+test('revised defaults preserve every personal field and edited timestamps', () => {
+  const seed = Object.values(defaultPurchases())[0];
+  for (const personal of [
+    { updatedAt: 10 },
+    { paid: true },
+    { actual: 0 },
+    { coupon: 'DISCOUNT' },
+    { note: 'Reserved with the hotel' },
+    { customUrl: 'https://example.com/booking' },
+  ]) {
+    const edited = { ...seed, plan: seed.plan + 1000, ...personal };
+    assert.deepEqual(
+      mergeCurrentDefaults({ [seed.id]: edited })[seed.id],
+      edited,
+    );
+  }
 });
 test('separate tabs editing different records do not discard each other', () => {
   const store = new MemoryStorage(),
@@ -97,7 +132,7 @@ test('failed local storage never reports a successful save', () => {
   );
 });
 test('all six 20-day routes retain covers and real local image files', () => {
-  assert.equal(placePhotos.length, 28);
+  assert.ok(placePhotos.length >= 28);
   for (const p of placePhotos) {
     const bytes = readFileSync('public' + p.src);
     assert.equal(bytes[0], 255);

@@ -8,7 +8,11 @@ import {
   storageKey,
   type BudgetBackup,
 } from './local-purchases';
-import { validatePurchase, type SavedPurchase } from './purchase-state';
+import {
+  mergeCurrentDefaults,
+  validatePurchase,
+  type SavedPurchase,
+} from './purchase-state';
 export type Connection = { room: string; secret: string };
 export type Snapshot = {
   room: string | null;
@@ -86,7 +90,9 @@ function snapshot(value: unknown): Snapshot {
   return {
     room: v.room,
     revision: v.revision,
-    purchases: Object.fromEntries(parsed.purchases.map((p) => [p.id, p])),
+    purchases: mergeCurrentDefaults(
+      Object.fromEntries(parsed.purchases.map((p) => [p.id, p])),
+    ),
     conflict: v.conflict === true,
   };
 }

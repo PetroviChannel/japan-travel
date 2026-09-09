@@ -1,3 +1,5 @@
+import { mainPurchaseUpdates, mainNewPurchases } from './main-route-purchases';
+
 export type Purchase = {
   id: string;
   category: 'flight' | 'hotel' | 'transport' | 'place' | 'daily';
@@ -16,7 +18,7 @@ export const groups = [
   {
     id: 'hotel',
     name: 'Где жить',
-    label: 'Отдельный номер на двоих · собственный санузел',
+    label: 'Отдельный номер на двоих · условия и даты каждой остановки',
   },
   {
     id: 'transport',
@@ -30,7 +32,7 @@ const flight = (from: string, to: string, date: string) =>
   `https://ru.trip.com/flights/showfarefirst?dcity=${from}&acity=${to}&ddate=${date}&triptype=ow&class=y&quantity=2&locale=ru-RU&curr=RUB`;
 const hotel = (city: number, id: number, from: string, to: string) =>
   `https://ru.trip.com/hotels/detail/?cityId=${city}&hotelId=${id}&checkIn=${from}&checkOut=${to}&adult=2&crn=1&curr=RUB`;
-export const purchases: Purchase[] = [
+export const legacyPurchases: Purchase[] = [
   {
     id: 'f-moscow',
     category: 'flight',
@@ -196,7 +198,7 @@ const place = (
   linkLabel: 'Билеты и условия',
   extra,
 });
-purchases.push(
+legacyPurchases.push(
   travel(
     't-naha',
     'Аэропорт Нахи → город',
@@ -535,6 +537,11 @@ purchases.push(
     note: 'Запас на сборы, которые могут оплачиваться в отеле. Не оплачивайте повторно то, что уже включено в ваучер; скорректируйте после бронирования.',
   },
 );
+export const purchases: Purchase[] = [
+  ...legacyPurchases.map((p) => ({ ...p, ...mainPurchaseUpdates[p.id] })),
+  ...mainNewPurchases,
+];
+
 export const stops = [
   {
     name: 'Наха',
@@ -543,10 +550,10 @@ export const stops = [
     text: 'Город, Сюри и один день на Токасики.',
   },
   {
-    name: 'Онна',
+    name: 'Чатан · American Village',
     date: '25–28 окт.',
     nights: '3 ночи',
-    text: 'Пляж, море и океанариум Churaumi.',
+    text: 'Terrace Resort Mihama, Американская деревня, пляжи и Ёмитан.',
   },
   {
     name: 'Осака',
@@ -561,16 +568,16 @@ export const stops = [
     text: 'Храмы, Гион и Арасияма без спешки.',
   },
   {
-    name: 'Фудзи',
+    name: 'Фудзикавагутико',
     date: '5–6 нояб.',
     nights: '1 ночь',
-    text: 'Кавагутико и онсэн с видом на гору.',
+    text: 'Yamagishi Ryokan, онсэн в рёкане и велосипеды у озера.',
   },
   {
     name: 'Токио',
     date: '6–10 нояб.',
     nights: '4 ночи',
-    text: 'Три полных дня в городе и вылет вечером 10 ноября.',
+    text: 'Асакуса, Warner Bros. 8 ноября, Сибуя. Вылет вечером 10 ноября.',
   },
 ];
 export const kindLabels = {

@@ -108,6 +108,35 @@ function stored() {
   return JSON.parse(storage.getItem(storageKey)!);
 }
 
+test('cloud reads refresh only untouched defaults without writes or new lock timestamps', async () => {
+  connect();
+  const defaults = defaultPurchases(),
+    [seed, edited, missing] = Object.values(defaults),
+    records = {
+      [seed.id]: { ...seed, plan: seed.plan + 1000 },
+      [edited.id]: {
+        ...edited,
+        plan: edited.plan + 1000,
+        paid: true,
+        actual: 1200,
+        note: 'Already booked',
+        updatedAt: 123,
+      },
+    };
+  const requests: string[] = [];
+  globalThis.fetch = async (url) => {
+    requests.push(String(url));
+    return reply({ room: first.room, revision: 4, purchases: records });
+  };
+  const result = await readPurchases();
+  assert.deepEqual(result.purchases[seed.id], seed);
+  assert.deepEqual(result.purchases[edited.id], records[edited.id]);
+  assert.deepEqual(result.purchases[missing.id], missing);
+  assert.equal(result.revision, 4);
+  assert.deepEqual(requests, [cloudConfig.url + '/rest/v1/rpc/trip_read']);
+  assert.equal(result.purchases[seed.id].updatedAt, 0);
+});
+
 test('an old poll cannot replace a newer saved budget in the local fallback', async () => {
   connect();
   const records = defaultPurchases(),

@@ -1,12 +1,11 @@
 import { purchases } from './trip-data';
 import {
-  initialState,
+  mergeCurrentDefaults,
   validatePurchase,
   type SavedPurchase,
 } from './purchase-state';
 export const storageKey = 'tabi:japan-2026:budget-v1';
-export const defaultPurchases = () =>
-  Object.fromEntries(purchases.map((p) => [p.id, initialState(p)]));
+export const defaultPurchases = () => mergeCurrentDefaults({});
 export type BudgetBackup = {
   version: 1;
   trip: 'japan-2026';
@@ -70,7 +69,7 @@ export function loadLocalPurchases(
   const next = defaultPurchases(),
     raw = storage.getItem(storageKey);
   if (raw) for (const row of parseBackup(raw).purchases) next[row.id] = row;
-  return next;
+  return mergeCurrentDefaults(next);
 }
 function persist(
   records: Record<string, SavedPurchase>,

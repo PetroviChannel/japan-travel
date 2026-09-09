@@ -21,6 +21,29 @@ export function initialState(p: Purchase): SavedPurchase {
     updatedAt: 0,
   };
 }
+export function mergeCurrentDefaults(
+  records: Record<string, SavedPurchase>,
+): Record<string, SavedPurchase> {
+  const next = { ...records };
+  for (const purchase of purchases) {
+    const saved = records[purchase.id];
+    if (!saved) {
+      next[purchase.id] = initialState(purchase);
+    } else if (
+      saved.updatedAt === 0 &&
+      !saved.paid &&
+      saved.actual === null &&
+      saved.coupon === '' &&
+      saved.note === '' &&
+      saved.customUrl === ''
+    ) {
+      // Only untouched seeds follow a revised itinerary. Keep the server's
+      // timestamp so the first real edit still uses its optimistic lock.
+      next[purchase.id] = { ...saved, plan: purchase.price };
+    }
+  }
+  return next;
+}
 export function validatePurchase(value: unknown): SavedPurchase {
   if (!value || typeof value !== 'object' || Array.isArray(value))
     throw new Error('Неверные данные покупки');

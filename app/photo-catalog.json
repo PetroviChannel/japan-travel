@@ -334,5 +334,41 @@
     "width": 1280,
     "height": 960,
     "position": "60% center"
+  },
+  {
+    "key": "american-village",
+    "label": "Американская деревня, Тятан — вечерняя панорама, 2025",
+    "src": "/places/american-village.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:P_日本_Japan_沖繩_OKINAWA_Mihama_the_Beach_Tower_Hotel_room_balcony_view_Vessel_Hotel_n_美國村_American_Village_night_January_2025_R12S_08.jpg",
+    "author": "Naha Mama Pavilionz",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "width": 1280,
+    "height": 960,
+    "position": "center 55%"
+  },
+  {
+    "key": "warner",
+    "label": "Вход в Warner Bros. Studio Tour Tokyo",
+    "src": "/places/warner.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Warner_Bros._Studio_Tour_Tokyo_entrance_(2)_2023-08-17.jpg",
+    "author": "Asanagi",
+    "license": "CC0 1.0",
+    "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "width": 1280,
+    "height": 960,
+    "position": "center 55%"
+  },
+  {
+    "key": "zakimi",
+    "label": "Каменные стены замка Дзакими, Йомитан",
+    "src": "/places/zakimi.jpg",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Zakimi_Mauer.jpg",
+    "author": "Renate Hano / Piet Parkiet",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "width": 1280,
+    "height": 960,
+    "position": "center"
   }
 ]

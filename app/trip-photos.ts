@@ -17,6 +17,9 @@ export const placePhotos: PlacePhoto[] = catalog;
 export const photoByKey = (key: string) =>
   placePhotos.find((p) => p.key === key);
 const matches: [RegExp, string][] = [
+  [/warner.*studio.*tokyo/i, 'warner'],
+  [/american village/i, 'american-village'],
+  [/zakimi.*castle|zakimi.gusuku/i, 'zakimi'],
   [/shurijo|shureimon/i, 'shuri'],
   [/aharen/i, 'aharen'],
   [/emerald beach/i, 'emerald'],
@@ -55,27 +58,31 @@ export function photoForDay(d: RouteDay) {
   const exact = main.map(photoForStop).find(Boolean);
   if (exact) return exact;
   const city = d.city;
-  const key = /Наха/.test(city)
-    ? 'naha'
-    : /Онна/.test(city)
-      ? 'onna'
-      : /Хиросима/.test(city)
-        ? 'hiroshima'
-        : /Миядзима/.test(city)
-          ? 'miyajima'
-          : /Хаконе/.test(city)
-            ? 'hakone'
-            : /Фудзи|Кавагутико/.test(city)
-              ? 'fuji'
-              : /Киото/.test(city)
-                ? 'gion'
-                : /Камакура/.test(city)
-                  ? 'kamakura'
-                  : /Коясан/.test(city)
-                    ? 'koyasan'
-                    : /Осака/.test(city)
-                      ? 'dotonbori'
-                      : 'shibuya';
+  const key = /Йомитан|Ёмитан/.test(city)
+    ? 'zakimi'
+    : /Тятан|Чатан|Американская деревня/.test(city)
+      ? 'american-village'
+      : /Наха/.test(city)
+        ? 'naha'
+        : /Онна/.test(city)
+          ? 'onna'
+          : /Хиросима/.test(city)
+            ? 'hiroshima'
+            : /Миядзима/.test(city)
+              ? 'miyajima'
+              : /Хаконе/.test(city)
+                ? 'hakone'
+                : /Фудзи|Кавагутико/.test(city)
+                  ? 'fuji'
+                  : /Киото/.test(city)
+                    ? 'gion'
+                    : /Камакура/.test(city)
+                      ? 'kamakura'
+                      : /Коясан/.test(city)
+                        ? 'koyasan'
+                        : /Осака/.test(city)
+                          ? 'dotonbori'
+                          : 'shibuya';
   return photoByKey(key) || d.stops.map(photoForStop).find(Boolean);
 }
 export const variantPhotoKeys: Record<string, string> = {

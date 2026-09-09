@@ -288,7 +288,7 @@ export default function Deals({
       <section className="method-note">
         <h3>Можно ли всё купить через Trip.com?</h3>
         <p>
-          Перелёты, отели, Universal, Churaumi, Shibuya Sky и часть
+          Перелёты, отели, Universal, Warner Bros., Shibuya Sky и часть
           железнодорожных билетов — да, при наличии нужной даты и тарифа. Ссылка
           на достопримечательность ведёт к выбору билета, а не к уже подобранной
           корзине.

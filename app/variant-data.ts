@@ -1,4 +1,8 @@
-import { purchases, type Purchase } from './trip-data';
+import {
+  legacyPurchases as purchases,
+  purchases as mainPurchases,
+  type Purchase,
+} from './trip-data';
 import { routeDays, type RouteDay, type RouteStop } from './route-data';
 import { refreshVariant } from './price-refresh';
 
@@ -33,7 +37,7 @@ export type TripVariant = {
   costs: CostLine[];
   days: RouteDay[];
 };
-export const originalTotal = purchases.reduce((n, p) => n + p.price, 0);
+export const originalTotal = mainPurchases.reduce((n, p) => n + p.price, 0);
 export const costGroups = [
   { id: 'flight', label: 'Перелёты' },
   { id: 'hotel', label: 'Жильё' },
