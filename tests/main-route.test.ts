@@ -1,7 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { baseRouteDays } from '../app/base-route-days';
-import { purchases } from '../app/trip-data';
+import { purchases, legacyPurchases } from '../app/trip-data';
+import { routeDays } from '../app/route-data';
+import { bookedHotels } from '../app/main-bookings';
 import {
   mainKawaHotels,
   mainKawaBaths,
@@ -58,7 +60,7 @@ test('main Fuji night is Yamagishi with check-in before the included onsen', () 
 
 test('main Okinawa uses Chatan and replaces the aquarium with Yomitan', () => {
   for (const date of ['2026-10-25', '2026-10-26', '2026-10-27']) {
-    assert.match(baseRouteDays.find((d) => d.date === date)!.hotel, /Terrace/);
+    assert.match(baseRouteDays.find((d) => d.date === date)!.hotel, /Luana/);
   }
   const yomitan = baseRouteDays.find((d) => d.date === '2026-10-26')!;
   assert.ok(yomitan.stops.some((s) => /Zakimi/i.test(s.query)));
@@ -79,7 +81,99 @@ test('main Okinawa uses Chatan and replaces the aquarium with Yomitan', () => {
   );
   assert.doesNotMatch(
     visible,
-    /Toyoko Inn Fuji|Fuji Yurari|Kalakaua|Churaumi/i,
+    /Toyoko Inn Fuji|Fuji Yurari|Kalakaua|Churaumi|Terrace|MIEGUSUKU|nippori/i,
+  );
+});
+
+test('confirmed hotel identities and links change without changing original budget amounts', () => {
+  const expected = [
+    [
+      'h-transit',
+      bookedHotels.transit,
+      '109847341',
+      '2026-10-21',
+      '2026-10-22',
+      3026.69,
+    ],
+    [
+      'h-naha',
+      bookedHotels.naha,
+      '3053374',
+      '2026-10-22',
+      '2026-10-25',
+      12097.56,
+    ],
+    [
+      'h-onna',
+      bookedHotels.chatan,
+      '13911923',
+      '2026-10-25',
+      '2026-10-28',
+      17790.3,
+    ],
+    [
+      'h-osaka',
+      bookedHotels.osaka,
+      '124190940',
+      '2026-10-28',
+      '2026-11-01',
+      9939.34,
+    ],
+  ] as const;
+  for (const [id, hotel, hotelId, from, to, price] of expected) {
+    const purchase = purchases.find((p) => p.id === id)!;
+    assert.equal(purchase.title, hotel.title);
+    assert.equal(purchase.price, price);
+    const url = new URL(purchase.link!);
+    assert.equal(url.searchParams.get('hotelId'), hotelId);
+    assert.equal(url.searchParams.get('checkIn'), from);
+    assert.equal(url.searchParams.get('checkOut'), to);
+    assert.equal(url.searchParams.get('adult'), '2');
+    assert.equal(url.searchParams.get('crn'), '1');
+  }
+  assert.equal(
+    Math.round(purchases.reduce((sum, p) => sum + p.price, 0) * 100),
+    43143811,
+  );
+  assert.match(
+    legacyPurchases.find((p) => p.id === 'h-naha')!.title,
+    /MIEGUSUKU/,
+  );
+  assert.match(
+    routeDays.find((d) => d.date === '2026-10-29')!.origin,
+    /nippori/,
+  );
+});
+
+test('confirmed arrivals and hotel departures propagate into the main daily maps', () => {
+  const arrival = baseRouteDays.find((d) => d.date === '2026-10-22')!;
+  assert.equal(arrival.stops[0].time, '18:05–19:15');
+  assert.match(arrival.stops[0].detail, /UO844/);
+  assert.equal(
+    arrival.stops.find((s) => s.purchaseIds?.includes('h-naha'))!.query,
+    bookedHotels.naha.query,
+  );
+  assert.equal(
+    baseRouteDays.find((d) => d.date === '2026-10-25')!.origin,
+    bookedHotels.naha.query,
+  );
+  assert.equal(
+    baseRouteDays.find((d) => d.date === '2026-10-28')!.origin,
+    bookedHotels.chatan.query,
+  );
+  for (const date of ['2026-10-29', '2026-10-30', '2026-10-31', '2026-11-01'])
+    assert.equal(
+      baseRouteDays.find((d) => d.date === date)!.origin,
+      bookedHotels.osaka.query,
+    );
+  assert.match(
+    baseRouteDays.find((d) => d.date === '2026-11-01')!.stops[0].detail,
+    /до 10:00/,
+  );
+  assert.match(purchases.find((p) => p.id === 'f-moscow')!.note, /38 ч 05 мин/);
+  assert.doesNotMatch(
+    purchases.find((p) => p.id === 'f-osaka')!.note,
+    /без сдаваемого багажа/,
   );
 });
 

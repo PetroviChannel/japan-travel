@@ -1,5 +1,6 @@
 import { purchases } from './trip-data';
-import { routeDays, mapDirections, mapSearch } from './route-data';
+import { mapDirections, mapSearch } from './route-data';
+import { baseRouteDays as routeDays } from './base-route-days';
 import { tripVariants, costTotal } from './variant-data';
 import {
   summarize,

@@ -1,16 +1,42 @@
 import type { Purchase } from './trip-data';
 import { kawaBooking } from './kawaguchiko-onsen-data';
+import { bookedHotels } from './main-bookings';
 
 const yen = (amount: number) => Math.round(amount * 0.552789);
 
 // IDs identify budget slots, so existing personal amounts and payment marks survive.
 export const mainPurchaseUpdates: Record<string, Partial<Purchase>> = {
+  'f-moscow': {
+    note: 'Купленные рейсы, время местное: 20.10 22:00 SVO → 21.10 11:50 HGH, JD608; 22.10 08:30 HGH → 11:10 HKG, HX129; 22.10 14:25 HKG → 18:05 OKA, UO844. Вся дорога 38 ч 05 мин. Условия пересадок и норму багажа сверять по билетам. Фактическая сумма сохранена в бюджете.',
+  },
+  'f-osaka': {
+    note: 'Прямой рейс на двух взрослых. В оплаченном заказе есть зарегистрированный багаж; точная норма и правила ручной клади — по билету. Дополнительная услуга уже входит в фактическую сумму в бюджете.',
+  },
+  'h-transit': {
+    title: bookedHotels.transit.title,
+    note: 'Забронировано 21–22 октября: один номер на двух взрослых, два завтрака включены. Адрес: Building 3 No.92 Xiangfei Road, Xiaoshan District, Hangzhou. Заезд после 14:00, выезд до 14:00; утром 22 октября нужно выехать раньше к рейсу 08:30. Фактическая сумма — в бюджете.',
+    link: bookedHotels.transit.link,
+    linkLabel: 'Страница забронированного отеля',
+  },
+  'h-naha': {
+    title: bookedHotels.naha.title,
+    note: 'Забронировано 22–25 октября: один номер на двух взрослых, без питания. Адрес: 2 Chome-1-6 Tsuji, Naha. Заезд 15:00–21:00, выезд до 12:00. Фактическая сумма — в бюджете.',
+    link: bookedHotels.naha.link,
+    linkLabel: 'Страница забронированного отеля',
+  },
   'h-onna': {
-    title: 'Terrace Resort Mihama · American Village / Чатан',
+    title: bookedHotels.chatan.title,
     city: 'Чатан',
     price: 17790.3,
-    note: '25–28 октября, три ночи на двоих. Проверка Trip.com 8 сентября 2026: свой санузел, кухня и стиральная машина. До входной части American Village около 16–20 минут пешком, до пляжа Араха 5–10 минут. Заезд с 15:00, раннее хранение вещей согласовать. Цена и наличие могут измениться.',
-    link: 'https://ru.trip.com/hotels/chatan-hotel-detail-81388816/terrace-resort-mihama/?checkin=2026-10-25&checkout=2026-10-28&adult=2&crn=1&curr=RUB',
+    note: 'Забронировано 25–28 октября: один номер на двух взрослых, без питания. Адрес: 1-chome-6-23 Kuwae, Chatan. Заезд 15:00–21:00, выезд до 10:00. Хранение багажа до заселения согласовать отдельно. Фактическая сумма — в бюджете.',
+    link: bookedHotels.chatan.link,
+    linkLabel: 'Страница забронированного отеля',
+  },
+  'h-osaka': {
+    title: bookedHotels.osaka.title,
+    note: 'Забронировано 28 октября — 1 ноября: один номер на двух взрослых, без питания. Адрес: Ebisuhigashi 2-9-1, Grand Heights Hishitomi, Osaka. Заезд после 15:00, выезд до 10:00. Инструкция заселения — в ваучере. Фактическая сумма — в бюджете.',
+    link: bookedHotels.osaka.link,
+    linkLabel: 'Страница забронированного отеля',
   },
   'h-fuji': {
     title: 'Yamagishi Ryokan · татами и футоны',
@@ -28,8 +54,11 @@ export const mainPurchaseUpdates: Record<string, Partial<Purchase>> = {
     city: 'Чатан',
     price: yen(4000),
     kind: 'tariff',
-    note: 'На двоих: TK05 Наха → Chatan Gateway по ¥1000 и LIM-A Gateway → аэропорт по ¥1000, всего ¥4000. План: 25.10 12:00–12:45; 28.10 08:56–10:22 к рейсу 12:20. LIM-A забронировать заранее; расписание и конечную цену обоих переездов сверить перед поездкой. Пеший участок к Terrace около 20–25 минут.',
+    note: 'На двоих: TK05 Наха → Chatan Gateway по ¥1000 и LIM-A Gateway → аэропорт по ¥1000, всего ¥4000. План: 25.10 12:00–12:45; 28.10 08:56–10:22 к рейсу 12:20. LIM-A забронировать заранее; расписание и конечную цену обоих переездов сверить перед поездкой. Подходы от UENOKURA и Luana Uakoko к остановкам построить по карте и заложить запас на багаж.',
     link: 'https://chatan-gateway.com/en/',
+  },
+  't-naha': {
+    note: 'Плановый резерв на двоих на Yui Rail и дорогу до Mr.KINJO in UENOKURA, 2 Chome-1-6 Tsuji. Подходящую станцию и пеший участок выбрать по карте; такси оплачивается из отдельного резерва.',
   },
   't-aquarium': {
     title: 'Чатан → Ёмитан → Чатан · автобус',

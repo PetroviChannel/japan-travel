@@ -46,7 +46,8 @@ export const rub = (n: number) =>
   new Intl.NumberFormat('ru-RU', {
     style: 'currency',
     currency: 'RUB',
-    maximumFractionDigits: 0,
+    minimumFractionDigits: Number.isInteger(Math.round(n * 100) / 100) ? 0 : 2,
+    maximumFractionDigits: 2,
   }).format(n);
 const defaults = () => mergeCurrentDefaults({});
 class PurchaseConflict extends Error {

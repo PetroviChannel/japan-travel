@@ -553,7 +553,7 @@ export const stops = [
     name: 'Чатан · American Village',
     date: '25–28 окт.',
     nights: '3 ночи',
-    text: 'Terrace Resort Mihama, Американская деревня, пляжи и Ёмитан.',
+    text: 'Luana Uakoko Resort Hotel, Американская деревня, пляжи и Ёмитан.',
   },
   {
     name: 'Осака',

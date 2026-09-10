@@ -1,8 +1,9 @@
 import { updateFujiDay } from './main-fuji-days';
 import { updateTokyoDay } from './main-tokyo-days';
 import { routeDays, type RouteDay, type RouteStop } from './route-data';
+import { bookedHotels, updateBookedDay } from './main-bookings';
 
-const chatanHotel = 'Terrace Resort Mihama Chatan Okinawa';
+const chatanHotel = bookedHotels.chatan.query;
 const chatanGateway = 'Chatan Gateway Okinawa';
 const chatanBusSource = {
   label: 'Chatan Gateway: расписание и билеты',
@@ -19,9 +20,9 @@ function mainOkinawaDay(day: RouteDay): RouteDay | undefined {
       ...day,
       city: 'Наха → Чатан',
       title: 'Вторая база: Американская деревня и море',
-      hotel: 'Terrace Resort Mihama · 25–28 октября',
+      hotel: 'Luana Uakoko Resort Hotel · 25–28 октября',
       pace: 'Переезд, заселение и вечер в American Village',
-      note: 'Живём в Чатане у пляжа Араха: от Terrace до входной части American Village 16–20 минут пешком, до прибрежных кафе дальше. Заезд планируем с 15:00, код самостоятельного заселения получить заранее. Раннее хранение чемоданов не предполагаем. Автобусные часы — опубликованное расписание, остальные интервалы — план.',
+      note: 'Живём в Luana Uakoko Resort Hotel, 1-chome-6-23 Kuwae, Chatan. Вечером гуляем по American Village. Заезд 15:00–21:00, выезд 28 октября до 10:00; хранение чемоданов до заселения согласовать отдельно. Автобусные часы — опубликованное расписание, подходы от нового отеля и остальные интервалы проверить по карте.',
       walk: [
         'Mihama American Village Chatan Okinawa',
         'Depot Island Chatan Okinawa',
@@ -33,22 +34,22 @@ function mainOkinawaDay(day: RouteDay): RouteDay | undefined {
           title: 'Завтрак, сборы и выселение',
           query: day.origin,
           detail:
-            'Собрать пляжные вещи, получить инструкцию заезда в Terrace. После выселения спокойно позавтракать по пути к автобусу; чемоданы остаются с вами.',
+            'Собрать пляжные вещи, получить инструкцию заезда в Luana Uakoko. Выселиться из UENOKURA до 12:00 с запасом на дорогу к автобусу; чемоданы остаются с вами.',
           leg: 'В отеле Нахи и рядом',
           mode: 'none',
           kind: 'rest',
           duration: '60 мин',
         },
         {
-          time: '11:20–11:45',
+          time: 'К 11:45 · выход по карте',
           title: 'К остановке Kokusai-dori Iriguchi',
           query: 'Kokusai Dori Iriguchi Tokyo Bus Naha',
           detail:
             'Нужна остановка TK05 в сторону Chatan Gateway. Уточнить сторону посадки на схеме перевозчика и прийти с запасом; багаж можно поместить в отсек автобуса.',
-          leg: 'От Mr.KINJO около 25 минут пешком; с чемоданами заложить больше',
+          leg: 'UENOKURA → Kokusai-dori Iriguchi: маршрут проверить по карте',
           mode: 'walking',
           kind: 'travel',
-          duration: '25 мин',
+          duration: 'По выбранному маршруту',
           source: chatanBusSource,
         },
         {
@@ -78,11 +79,11 @@ function mainOkinawaDay(day: RouteDay): RouteDay | undefined {
         },
         {
           time: '14:15–15:30',
-          title: 'Пройти к Terrace и заселиться',
+          title: 'Пройти к Luana Uakoko и заселиться',
           query: chatanHotel,
           detail:
-            'От Gateway заложить до 30 минут пешком. Номер с кухней и своим санузлом; три ночи на двоих 17 790,30 ₽ по проверке 8 сентября. Заезд около 15:00 сверить с ваучером, оставить чемоданы и отдохнуть.',
-          leg: 'Chatan Gateway → Terrace Resort Mihama',
+            'Забронирован один номер на двоих, без питания. Построить путь к Luana Uakoko, 1-chome-6-23 Kuwae; заезд с 15:00 до 21:00, оставить чемоданы и отдохнуть. Фактическая сумма сохранена во вкладке «Покупки».',
+          leg: 'Chatan Gateway → Luana Uakoko: по карте',
           mode: 'walking',
           kind: 'travel',
           duration: '75 мин с запасом',
@@ -93,8 +94,8 @@ function mainOkinawaDay(day: RouteDay): RouteDay | undefined {
           title: 'Американская деревня',
           query: 'Mihama American Village Chatan Okinawa',
           detail:
-            'Магазины, яркие улицы и небольшие кафе. От отеля 16–20 минут до входной части комплекса; дальше гуляем без багажа.',
-          leg: 'Terrace → American Village: 16–20 мин пешком',
+            'Магазины, яркие улицы и небольшие кафе. От Luana Uakoko построить пеший маршрут к комплексу; гуляем без багажа.',
+          leg: 'Luana Uakoko → American Village: по карте',
           mode: 'walking',
           kind: 'main',
           duration: '60 мин',
@@ -118,22 +119,22 @@ function mainOkinawaDay(day: RouteDay): RouteDay | undefined {
       ...day,
       city: 'Чатан / Ёмитан',
       title: 'Дзакими и деревня керамики Ятимун-но-Сато',
-      hotel: 'Terrace Resort Mihama',
+      hotel: bookedHotels.chatan.title,
       origin: chatanHotel,
       pace: 'Культура Окинавы · около 6–8 км пешком за день',
       note: 'Едем автобусом №29 через Kina: сначала замок, затем мастерские, которые открываются позже. Замок → Ятимун: 2,8 км / 39 минут по Google Maps, в плане 50 минут. На автобусы заложен резерв ¥3200 на двоих, точный тариф ещё не проверен. Вход в замок и прогулка по деревне бесплатны; музей, мастер-классы и покупки отдельно. Часы автобусов взяты из опубликованной таблицы перевозчика с 16.10.2023 — перед октябрём 2026 перепроверить. У №29 редкие рейсы; №28 идёт другим путём.',
       walk: ['Zakimi Castle Ruins Okinawa', 'Yachimun no Sato Okinawa'],
       stops: [
         {
-          time: '08:15–08:30',
+          time: 'К 08:30 · выход по карте',
           title: 'К остановке Chatan на шоссе 58',
           query: 'Chatan via Kadeno Goya Bus Stop Okinawa',
           detail:
-            'От Terrace до остановки Chatan в направлении Kadena / Goya около 180 м, 2 минуты пешком по Google Maps. Нужен автобус №29 через Kina в сторону Yomitan. Выйти заранее, чтобы найти верную сторону дороги.',
-          leg: 'Terrace → Chatan: 180 м пешком',
+            'Построить подход от Luana Uakoko к остановке Chatan в направлении Kadena / Goya. Нужен автобус №29 через Kina в сторону Yomitan. Время выхода подобрать по карте, чтобы быть на остановке к 08:30; проверить более удобную посадку, если она есть.',
+          leg: 'Luana Uakoko → остановка Chatan: по карте',
           mode: 'walking',
           kind: 'travel',
-          duration: '15 мин с запасом',
+          duration: 'По выбранному маршруту',
           source: yomitanBusSource,
         },
         {
@@ -223,7 +224,7 @@ function mainOkinawaDay(day: RouteDay): RouteDay | undefined {
           title: 'Автобус №29 обратно в Чатан',
           query: 'Chatan Bus Stop Okinawa',
           detail:
-            'Возвращаемся к Terrace. По опубликованной таблице следующий №29 от Oyashi только в 16:34, поэтому обед и прогулку не затягиваем; при пропуске проверить другие маршруты в Bus Navi.',
+            'Возвращаемся в Чатан, затем в Luana Uakoko. По опубликованной таблице следующий №29 от Oyashi только в 16:34, поэтому обед и прогулку не затягиваем; при пропуске проверить другие маршруты в Bus Navi.',
           leg: 'Oyashi → Chatan',
           mode: 'transit',
           kind: 'travel',
@@ -235,23 +236,23 @@ function mainOkinawaDay(day: RouteDay): RouteDay | undefined {
           published: true,
         },
         {
-          time: '14:15–16:00',
+          time: 'После автобуса · до 16:00',
           title: 'Отдохнуть в отеле',
           query: chatanHotel,
           detail:
             'После пешей части дня вернуться в номер, оставить покупки и отдохнуть. Вечер остаётся свободным для моря.',
-          leg: 'Остановка Chatan → Terrace пешком',
+          leg: 'Остановка Chatan → Luana Uakoko: по карте',
           mode: 'walking',
           kind: 'rest',
-          duration: '1 ч 45 мин',
+          duration: 'По времени прибытия в отель',
         },
         {
           time: '16:00–18:00',
           title: 'Море и вечер у Американской деревни',
           query: 'Sunset Beach Chatan Okinawa',
           detail:
-            'Неспешная прогулка к Sunset Beach, набережной Depot Island и кафе. Если устали, ближе к отелю находится Араха.',
-          leg: 'Terrace → Михама пешком',
+            'Неспешная прогулка к Sunset Beach, набережной Depot Island и кафе. Если устали, сократить прогулку и отдохнуть в отеле.',
+          leg: 'Luana Uakoko → Михама: по карте',
           mode: 'walking',
           kind: 'rest',
           duration: '2 часа',
@@ -264,10 +265,10 @@ function mainOkinawaDay(day: RouteDay): RouteDay | undefined {
       ...day,
       city: 'Чатан',
       title: 'Пляж Араха и вечер в Американской деревне',
-      hotel: 'Terrace Resort Mihama',
+      hotel: bookedHotels.chatan.title,
       origin: chatanHotel,
       pace: 'Море и прогулки пешком',
-      note: 'Полный день без автобусов: пляж Араха, отдых в отеле, Sunset Beach и вечерняя Михама. Купальный сезон Арахи продолжается по октябрь, точные часы и разрешение на купание зависят от погоды. К вечеру проверить бронь LIM-A на завтра и рейс Peach.',
+      note: 'Пляж Араха, отдых в отеле, Sunset Beach и вечерняя Михама. Подходы от Luana Uakoko проверить по карте и при необходимости выбрать транспорт. Купальный сезон Арахи продолжается по октябрь, точные часы и разрешение на купание зависят от погоды. К вечеру проверить бронь LIM-A на завтра и рейс Peach.',
       walk: [
         'Araha Beach Chatan Okinawa',
         'Sunset Beach Chatan Okinawa',
@@ -291,7 +292,7 @@ function mainOkinawaDay(day: RouteDay): RouteDay | undefined {
           query: 'Araha Beach Chatan Okinawa',
           detail:
             'Главный пляжный блок дня: песок, море и парк. Купаться в открытой зоне под надзором спасателей. Шезлонги, душ, шкафчики и водные развлечения оплачиваются отдельно по выбранным услугам.',
-          leg: 'От Terrace около 5–10 мин пешком',
+          leg: 'Luana Uakoko → Араха: маршрут проверить по карте',
           mode: 'walking',
           kind: 'main',
           duration: '2 ч 30 мин',
@@ -305,8 +306,8 @@ function mainOkinawaDay(day: RouteDay): RouteDay | undefined {
           title: 'Обед и отдых в отеле',
           query: chatanHotel,
           detail:
-            'Поесть рядом, освежиться и отдохнуть от солнца. Благодаря близкому отелю не нужно весь день носить пляжные вещи с собой.',
-          leg: 'Араха → Terrace пешком',
+            'Поесть, вернуться в Luana Uakoko и отдохнуть от солнца. Дорогу обратно и запас времени проверить по карте.',
+          leg: 'Араха → Luana Uakoko: по карте',
           mode: 'walking',
           kind: 'rest',
           duration: '3 часа',
@@ -317,7 +318,7 @@ function mainOkinawaDay(day: RouteDay): RouteDay | undefined {
           query: 'Sunset Beach Chatan Okinawa',
           detail:
             'Пройти через район Михама к пляжу. Вечером планируем набережную и виды, без обязательного купания.',
-          leg: 'Terrace → Sunset Beach: заложить 25–30 мин пешком',
+          leg: 'Luana Uakoko → Sunset Beach: по карте',
           mode: 'walking',
           kind: 'main',
           duration: '60 мин',
@@ -327,7 +328,7 @@ function mainOkinawaDay(day: RouteDay): RouteDay | undefined {
           title: 'American Village: ужин и огни Михамы',
           query: 'Mihama American Village Chatan Okinawa',
           detail:
-            'Свободное время в любимой части района: кафе, магазины или набережная Depot Island. Затем вернуться в Terrace и собрать вещи перед перелётом.',
+            'Свободное время в любимой части района: кафе, магазины или набережная Depot Island. Затем вернуться в Luana Uakoko и собрать вещи перед перелётом.',
           leg: 'От Sunset Beach пешком по району',
           mode: 'walking',
           kind: 'rest',
@@ -344,15 +345,15 @@ function mainOkinawaDay(day: RouteDay): RouteDay | undefined {
       note: 'В аэропорт едем LIM-A из Chatan Gateway по предварительной брони. Автобус 08:56–10:22 даёт запас до рейса 12:20, но время прибытия зависит от пробок. При изменении расписания рейса пересчитать выезд. Peach через Trip.com: регистрация в киоске или на стойке; приложение не поддерживает брони турагентов.',
       stops: [
         {
-          time: '07:50–08:35',
+          time: 'К 08:35 · выход по карте',
           title: 'Выселиться и прийти в Chatan Gateway',
           query: chatanGateway,
           detail:
-            'Выйти из Terrace с чемоданами заранее: пешком до 30 минут, плюс запас на поиск остановки. Утренний завтрак купить накануне.',
-          leg: 'Terrace → Chatan Gateway',
+            'Выезд из Luana Uakoko до 10:00, но для автобуса нужно выйти раньше. Построить путь с чемоданами к Gateway и прибыть к 08:35. Утренний завтрак купить накануне.',
+          leg: 'Luana Uakoko → Chatan Gateway: по карте',
           mode: 'walking',
           kind: 'travel',
-          duration: '45 мин с запасом',
+          duration: 'По выбранному маршруту',
         },
         {
           time: '08:56–10:22',
@@ -375,6 +376,6 @@ function mainOkinawaDay(day: RouteDay): RouteDay | undefined {
 }
 
 // Separately priced alternatives retain their own dates and accommodation.
-export const baseRouteDays: RouteDay[] = routeDays.map(
-  (day) => mainOkinawaDay(day) ?? updateTokyoDay(updateFujiDay(day)),
+export const baseRouteDays: RouteDay[] = routeDays.map((day) =>
+  updateBookedDay(mainOkinawaDay(day) ?? updateTokyoDay(updateFujiDay(day))),
 );

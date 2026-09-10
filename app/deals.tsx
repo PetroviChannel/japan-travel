@@ -10,6 +10,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import type { SavedPurchase } from './purchase-state';
+import { bookedHotels } from './main-bookings';
 const rub = (n: number) =>
   new Intl.NumberFormat('ru-RU', {
     style: 'currency',
@@ -102,8 +103,9 @@ export default function Deals({
           <p className="eyebrow">Что уже экономит</p>
           <h3>Апартаменты и обычные поезда</h3>
           <p>
-            nippori в Осаке — 9 939 ₽ за четыре ночи с уборкой. Между Осакой и
-            Киото — Hankyu, в Нариту — обычный поезд. JR Pass и Express Pass не
+            В Осаке забронирован {bookedHotels.osaka.title} на четыре ночи;
+            фактическая сумма — во вкладке «Покупки». Между Осакой и Киото —
+            Hankyu, в Нариту — обычный поезд. JR Pass и Express Pass не
             добавлены.
           </p>
           <p>
@@ -252,14 +254,13 @@ export default function Deals({
           </p>
           <p>
             Для{' '}
-            <Link url="https://ostrovok.ru/hotel/japan/naha/mid9964076/mrkinjo_in_miegusuku/?dates=22.10.2026-25.10.2026&guests=2">
-              Mr.KINJO
-            </Link>{' '}
+            <Link url={bookedHotels.naha.link}>{bookedHotels.naha.title}</Link>{' '}
             и{' '}
-            <Link url="https://ostrovok.ru/hotel/japan/osaka/mid13635135/nippori_osaka_nishitengachaya_guesthousexi_tian_xia_cha_wu_ahatomento/?dates=28.10.2026-01.11.2026&guests=2">
-              nippori
+            <Link url={bookedHotels.osaka.link}>
+              {bookedHotels.osaka.title}
             </Link>{' '}
-            есть страницы Островка. Финальная цена на эти даты не подтверждена.
+            приведены страницы забронированных отелей. Фактические суммы — во
+            вкладке «Покупки».
           </p>
         </section>
       </div>
@@ -269,8 +270,9 @@ export default function Deals({
           <Link url="https://ru.trip.com/hotels/naha-hotel-detail-711296/smile-hotel-okinawa-naha/?checkin=2026-10-22&checkout=2026-10-25&adult=2&crn=1&curr=RUB">
             Smile Hotel Okinawa Naha
           </Link>{' '}
-          — 15 431 ₽ за 22–25 октября, примерно +3 333 ₽. Удобнее для парома:
-          рядом с портом Tomari. Тариф и свободный номер перепроверьте.
+          — архивное предложение от 8 сентября 2026: 15 431 ₽ за 22–25 октября.
+          Рядом с портом Tomari. Этот вариант не входит в текущую бронь; тариф и
+          свободный номер перепроверьте.
         </p>
         <p>
           Обратно проверялся вариант Qatar на 10 ноября за 83 728 ₽ на двоих: в

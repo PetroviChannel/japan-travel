@@ -1,7 +1,6 @@
 import { mapSearch, mapDirections } from './route-data';
+import { bookedHotels } from './main-bookings';
 
-const terrace =
-  'https://ru.trip.com/hotels/chatan-hotel-detail-81388816/terrace-resort-mihama/?checkin=2026-10-25&checkout=2026-10-28&adult=2&crn=1&curr=RUB';
 const gateway = 'https://chatan-gateway.com/en/';
 const yomitanBus = 'https://www.yomitan-kankou.jp/access/bus_route/';
 
@@ -26,9 +25,9 @@ export default function OkinawaBases() {
       <div className="okinawa-bases-body">
         <p>
           Первые три ночи — в Нахе, затем переезжаем в Чатан и живём рядом с
-          Американской деревней. Дневные карты, остановки и переезды уже
-          соответствуют этим двум базам. Отели и билеты ещё предстоит
-          забронировать.
+          Американской деревней. Отели забронированы; фактические суммы — во
+          вкладке «Покупки». Подходы к автобусам и время выезда проверить по
+          карте от адресов забронированных отелей.
         </p>
 
         <div className="okinawa-base-grid">
@@ -41,9 +40,13 @@ export default function OkinawaBases() {
               катер на Токасики и пляж Aharen, вечером возвращаемся в Наху.
             </p>
             <p>
-              Жильё в основном бюджете — Mr.KINJO in MIEGUSUKU. Поздний заезд
-              согласовать до поездки. Городской пляж не занимает отдельный день:
-              для моря оставлены Токасики и Чатан.
+              Жильё в основном бюджете —{' '}
+              <Link href={bookedHotels.naha.link}>
+                {bookedHotels.naha.title}
+              </Link>
+              . 22–25 октября, без питания; заезд 15:00–21:00, выезд до 12:00.
+              Городской пляж не занимает отдельный день: для моря оставлены
+              Токасики и Чатан.
             </p>
             <Link href={mapSearch('Kokusai Dori Naha Okinawa')}>
               Кокусай-дори на карте
@@ -54,9 +57,8 @@ export default function OkinawaBases() {
             <h3>Чатан: Михама, American Village и Араха</h3>
             <p>
               Вечерами гуляем по Американской деревне, Depot Island и
-              набережной. До входной части American Village от Terrace 16–20
-              минут пешком; до прибрежных кафе немного дальше. Пляж Араха —
-              примерно в 5–10 минутах от отеля.
+              набережной. До American Village и пляжа Араха строим маршрут от
+              Luana Uakoko; время и удобный способ добраться проверяем по карте.
             </p>
             <p>
               На 26 октября — замок Дзакими и деревня керамики в Ёмитане. 27
@@ -71,24 +73,25 @@ export default function OkinawaBases() {
 
         <section aria-labelledby="american-village-hotel-update">
           <h3 id="american-village-hotel-update">
-            Где останавливаемся: Terrace Resort Mihama
+            Где останавливаемся: {bookedHotels.chatan.title}
           </h3>
           <div className="okinawa-hotel-grid">
             <article className="okinawa-base-recommended">
-              <span>25–28 октября 2026 · три ночи · двое взрослых</span>
-              <h4>Terrace Resort Mihama</h4>
-              <strong>17 790,30 ₽ за весь номер</strong>
+              <span>
+                25–28 октября 2026 · три ночи · один номер · двое взрослых
+              </span>
+              <h4>{bookedHotels.chatan.title}</h4>
+              <strong>Фактическая сумма — во вкладке «Покупки»</strong>
               <p>
-                27 м², кухня и собственный санузел, без питания. Оценка 8,7,
-                чистота 9,0. Бесплатная отмена до 18 октября 23:59 по условиям
-                проверенного тарифа. Возможен шум дороги. Для самостоятельного
-                заселения заранее получить код и сверить время заезда.
+                Без питания; заезд 15:00–21:00, выезд 28 октября до 10:00.
+                Адрес: 1-chome-6-23 Kuwae, Chatan. Инструкция входа и условия
+                отмены — в подтверждении бронирования.
               </p>
-              <Link href={terrace}>Забронировать на Trip.com</Link>
+              <Link href={bookedHotels.chatan.link}>Отель на Trip.com</Link>
               {' · '}
               <Link
                 href={mapDirections(
-                  'Terrace Resort Mihama Chatan',
+                  bookedHotels.chatan.query,
                   'Mihama American Village Chatan',
                   'walking',
                 )}
@@ -98,7 +101,7 @@ export default function OkinawaBases() {
               {' · '}
               <Link
                 href={mapDirections(
-                  'Terrace Resort Mihama Chatan',
+                  bookedHotels.chatan.query,
                   'Araha Beach Chatan',
                   'walking',
                 )}
@@ -108,9 +111,9 @@ export default function OkinawaBases() {
             </article>
           </div>
           <p className="okinawa-quote-note">
-            Цена Trip.com проверена 8 сентября 2026, налоги и показанные скидки
-            учтены. Это стоимость предложения, не оплаченная бронь; перед
-            покупкой проверить окончательный итог и правила тарифа.
+            В основном маршруте указаны забронированные отели. Суммы и статус
+            оплаты смотрите во вкладке «Покупки», правила тарифа — в
+            бронировании.
           </p>
         </section>
 
@@ -130,10 +133,11 @@ export default function OkinawaBases() {
             <h4>Чатан ↔ Ёмитан · резерв ¥3200</h4>
             <p>
               26 октября автобус №29: остановка Chatan 08:38 → Zakimi 09:05.
-              Обратно Oyashi 13:34 → Chatan 14:03. От Terrace до остановки около
-              180 м. ¥3200 — запас на проезд двух взрослых туда-обратно, точный
-              тариф ещё не проверен. Между замком и деревней 2,8 км пешком; вход
-              свободный, сувениры и мастер-классы отдельно.
+              Обратно Oyashi 13:34 → Chatan 14:03. Подход от Luana Uakoko к
+              остановке Chatan и время выхода проверить по карте. ¥3200 — запас
+              на проезд двух взрослых туда-обратно, точный тариф ещё не
+              проверен. Между замком и деревней 2,8 км пешком; вход свободный,
+              сувениры и мастер-классы отдельно.
             </p>
             <Link href={yomitanBus}>Автобусы и пешие подходы в Ёмитане</Link>
           </article>
@@ -151,18 +155,19 @@ export default function OkinawaBases() {
           <li>
             <strong>25 октября · переезд и Американская деревня</strong>
             <p>
-              После автобуса — обед с вещами, около 15:00 заселение. С 16:00
-              American Village, затем Depot Island, Sunset Beach и ужин у моря.
-              Раннее хранение багажа не предполагаем.
+              После автобуса — обед с вещами, затем заселение по времени из
+              брони. С 16:00 American Village, затем Depot Island, Sunset Beach
+              и ужин у моря. Раннее хранение багажа не предполагаем.
             </p>
           </li>
           <li>
             <strong>26 октября · Дзакими и Ятимун-но-Сато</strong>
             <p>
-              Выйти из отеля в 08:15. 09:20–10:10 замок Дзакими, затем 50 минут
-              пешком до деревни керамики. 11:00–12:15 мастерские, обед и к 13:20
-              остановка Oyashi. После возвращения — отдых в отеле, с 16:00 море
-              и Михама. За день около 6–8 км пешком.
+              Время выхода из Luana Uakoko рассчитать по карте с запасом к
+              автобусу от Chatan в 08:38. 09:20–10:10 замок Дзакими, затем 50
+              минут пешком до деревни керамики. 11:00–12:15 мастерские, обед и к
+              13:20 остановка Oyashi. После возвращения — отдых в отеле, с 16:00
+              море и Михама. За день около 6–8 км пешком.
             </p>
             <Link
               href={mapDirections(
@@ -188,9 +193,10 @@ export default function OkinawaBases() {
           <li>
             <strong>28 октября · перелёт в Осаку</strong>
             <p>
-              07:50 выселение, к 08:35 прийти в Gateway с чемоданами. Автобус в
-              аэропорт и регистрация на рейс 12:20. Точное время выезда
-              пересчитать, если изменится выбранный рейс.
+              Время выселения и выхода из Luana Uakoko рассчитать по карте,
+              чтобы к 08:35 быть в Gateway с чемоданами. Автобус в аэропорт в
+              08:56, затем регистрация на рейс 12:20. Время выезда пересчитать
+              при изменении расписания рейса или автобуса.
             </p>
           </li>
         </ol>
