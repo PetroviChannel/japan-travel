@@ -536,8 +536,8 @@ export default function Planner() {
         >
           <Bike size={22} aria-hidden="true" />
           <span>
-            <strong>Наш рёкан на Кавагутико: Yamagishi</strong>
-            <small>5–6 ноября · футоны и онсэн · 17 427 ₽ на двоих</small>
+            <strong>Наш план на Кавагутико: Villa House</strong>
+            <small>5–6 ноября · Airbnb целиком · предстоит купить</small>
           </span>
           <ArrowUpRight size={19} aria-hidden="true" />
         </Button>

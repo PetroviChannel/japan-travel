@@ -26,6 +26,18 @@ export const bookedHotels = {
       'AkiraHome Tsutenkaku, Ebisuhigashi 2-9-1 Grand Heights Hishitomi, Osaka',
     link: hotelLink(124190940, '2026-10-28', '2026-11-01'),
   },
+  kyoto: {
+    title: 'ATO Hotel Kyoto',
+    query: 'ATO Hotel Kyoto, 78-3 Shinmaruta-cho, Sakyo-ku, Kyoto',
+    link: hotelLink(9273053, '2026-11-01', '2026-11-05'),
+  },
+};
+
+export const plannedFujiStay = {
+  title: 'Villa House · Airbnb у озера Кавагутико',
+  // The exact home address is disclosed by the host after booking.
+  areaQuery: 'Kawaguchiko Excursion Boat Ensoleille',
+  link: 'https://www.airbnb.ru/rooms/1709535480452656858?adults=2&check_in=2026-11-05&check_out=2026-11-06&guests=2',
 };
 
 // Apply confirmed stays only to the main itinerary; alternatives keep their hotels.
@@ -37,11 +49,15 @@ export function updateBookedDay(day: RouteDay): RouteDay {
         'nippori Osaka Nishitengachaya Guesthouse Osaka',
         bookedHotels.osaka.query,
       )
-      .replaceAll('nippori', bookedHotels.osaka.title);
+      .replaceAll('nippori', bookedHotels.osaka.title)
+      .replaceAll('KIORI Exec Gojo Kyoto', bookedHotels.kyoto.query)
+      .replaceAll('KIORI Exec Gojo', bookedHotels.kyoto.title)
+      .replaceAll('KIORI', bookedHotels.kyoto.title);
   const next: RouteDay = {
     ...day,
     hotel: replaceHotel(day.hotel),
     origin: replaceHotel(day.origin),
+    note: replaceHotel(day.note),
     stops: day.stops.map((stop) => ({
       ...stop,
       title: replaceHotel(stop.title),
@@ -130,6 +146,56 @@ export function updateBookedDay(day: RouteDay): RouteDay {
       title: 'Переезд в Киото',
       leg: 'AkiraHome → Киото: время дороги проверить по карте',
     };
+    next.stops[2] = {
+      ...next.stops[2],
+      time: '14:00–16:30',
+      title: 'Обед и заселение в ATO Hotel',
+      query: bookedHotels.kyoto.query,
+      detail:
+        'Забронирован ATO Hotel Kyoto, 78-3 Shinmaruta-cho, Sakyo-ku. Один Double 11 м² с двуспальной кроватью, для двух взрослых, без питания, некурящий. Заезд после 16:00; раннее хранение багажа согласовать отдельно. Sanjo Keihan и Sanjo рядом с отелем. Выезд 5 ноября до 11:00.',
+      leg: 'Kawaramachi → ATO Hotel: построить путь по карте',
+      duration: 'Обед и ожидание заезда с 16:00',
+    };
+    next.stops[3] = {
+      ...next.stops[3],
+      time: '16:45–18:30',
+      detail:
+        'После заселения пройти к Камогаве и Понтотё, поужинать в центре. Большой маршрут по Гиону остаётся на 4 ноября.',
+      leg: 'От ATO Hotel к Камогаве и Понтотё пешком по карте',
+      mode: 'walking',
+      duration: '1 ч 45 мин',
+    };
   }
+  if (day.date >= '2026-11-01' && day.date <= '2026-11-04')
+    next.hotel = `${bookedHotels.kyoto.title} · 1–5 ноября`;
+  if (day.date === '2026-11-02')
+    next.stops[0] = {
+      ...next.stops[0],
+      detail:
+        'От Sanjo Keihan по линии Tozai до Nijo, затем JR Sagano Line до Saga-Arashiyama. Подходы и отправления проверить по карте; заложить запас к открытию Тэнрюдзи.',
+      leg: 'ATO Hotel → Sanjo Keihan → Nijo → Saga-Arashiyama',
+      duration: '60 мин с запасом; сверить маршрут',
+    };
+  if (day.date === '2026-11-03') {
+    next.stops[0] = {
+      ...next.stops[0],
+      title: 'Доехать к Фусими Инари',
+      query: 'Fushimi Inari Station Kyoto',
+      detail:
+        'От ближайшей станции Sanjo по Keihan до Fushimi-inari, затем пешком к святилищу. Выбрать поезд, который останавливается на Fushimi-inari; время выхода проверить на утро праздника.',
+      leg: 'ATO Hotel → Sanjo → Fushimi-inari',
+      duration: '45 мин с запасом; сверить отправление',
+    };
+    next.stops[1].leg = 'От Fushimi-inari пешком к входу по карте';
+    next.stops[2].leg = 'Fushimi-inari → Sanjo → ATO Hotel';
+    next.stops[3].leg = 'Sanjo Keihan → Nijojo-mae по Tozai, затем пешком';
+  }
+  if (day.date === '2026-11-04')
+    next.stops[0] = {
+      ...next.stops[0],
+      detail:
+        'От ATO Hotel выбрать путь через Sanjo и Kiyomizu-Gojo либо подходящий автобус, затем пешком в гору к Киёмидзу. На выбранное утро сверить маршрут; оставлен час с запасом.',
+      leg: 'ATO Hotel → Киёмидзу: транспорт и подъём по карте',
+    };
   return next;
 }

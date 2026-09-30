@@ -3,14 +3,8 @@ import assert from 'node:assert/strict';
 import { baseRouteDays } from '../app/base-route-days';
 import { purchases, legacyPurchases } from '../app/trip-data';
 import { routeDays } from '../app/route-data';
-import { bookedHotels } from '../app/main-bookings';
-import {
-  mainKawaHotels,
-  mainKawaBaths,
-  mainKawaPairs,
-  kawaYenRate,
-} from '../app/kawaguchiko-onsen-data';
-import { onsenVisitCost } from '../app/kawaguchiko-onsen-cost';
+import { bookedHotels, plannedFujiStay } from '../app/main-bookings';
+import { kawaYenRate } from '../app/kawaguchiko-onsen-data';
 
 test('main route keeps all dates and every booking link points to an existing budget slot', () => {
   assert.equal(baseRouteDays.length, 20);
@@ -31,31 +25,33 @@ test('main route keeps all dates and every booking link points to an existing bu
   });
 });
 
-test('main Fuji night is Yamagishi with check-in before the included onsen', () => {
+test('main Fuji night is planned Airbnb with check-in at 16 and no included onsen', () => {
   const day = baseRouteDays.find((d) => d.date === '2026-11-05')!;
-  assert.match(day.hotel, /Yamagishi/);
+  assert.match(day.hotel, /Villa House/);
+  assert.match(day.hotel, /предстоит купить/);
   const checkin = day.stops.findIndex((s) => s.purchaseIds?.includes('h-fuji'));
-  const onsen = day.stops.findIndex((s) => s.purchaseIds?.includes('p-yurari'));
-  assert.ok(checkin >= 0 && onsen > checkin);
-  assert.equal(day.stops[checkin].query, day.stops[onsen].query);
-  assert.match(
+  assert.ok(checkin >= 0);
+  assert.equal(day.stops[checkin].time, '16:00–16:30');
+  assert.equal(day.stops[checkin].query, plannedFujiStay.areaQuery);
+  assert.equal(
     baseRouteDays.find((d) => d.date === '2026-11-06')!.origin,
-    /Yamagishi/,
+    plannedFujiStay.areaQuery,
   );
   const hotel = purchases.find((p) => p.id === 'h-fuji')!;
   const url = new URL(hotel.link!);
-  assert.equal(url.searchParams.get('checkin'), '2026-11-05');
-  assert.equal(url.searchParams.get('checkout'), '2026-11-06');
-  assert.equal(url.searchParams.get('adult'), '2');
+  assert.equal(url.pathname, '/rooms/1709535480452656858');
+  assert.equal(url.searchParams.get('check_in'), '2026-11-05');
+  assert.equal(url.searchParams.get('check_out'), '2026-11-06');
+  assert.equal(url.searchParams.get('adults'), '2');
+  assert.equal(hotel.price, 17426.7);
+  assert.equal(hotel.kind, 'budget');
+  assert.match(hotel.note, /пока не оплачено/);
+  assert.match(hotel.note, /Термальный онсэн и бесплатный трансфер не подтверждены/);
   assert.equal(purchases.find((p) => p.id === 'p-yurari')!.price, 0);
-  const bath = mainKawaBaths.find((b) => b.id === 'yamagishi-onsen')!;
-  const cost = onsenVisitCost(
-    mainKawaHotels[0].priceRub,
-    bath.entryYen,
-    mainKawaPairs.find((p) => p.bathId === bath.id),
-    kawaYenRate,
+  assert.doesNotMatch(
+    JSON.stringify(day),
+    /Yamagishi|yamagisi\.jp|бесплатный трансфер от станции|купальни включены/i,
   );
-  assert.equal(cost.totalRub, hotel.price);
 });
 
 test('main Okinawa uses Chatan and replaces the aquarium with Yomitan', () => {
@@ -119,6 +115,14 @@ test('confirmed hotel identities and links change without changing original budg
       '2026-11-01',
       9939.34,
     ],
+    [
+      'h-kyoto',
+      bookedHotels.kyoto,
+      '9273053',
+      '2026-11-01',
+      '2026-11-05',
+      25543.99,
+    ],
   ] as const;
   for (const [id, hotel, hotelId, from, to, price] of expected) {
     const purchase = purchases.find((p) => p.id === id)!;
@@ -143,6 +147,8 @@ test('confirmed hotel identities and links change without changing original budg
     routeDays.find((d) => d.date === '2026-10-29')!.origin,
     /nippori/,
   );
+  assert.match(legacyPurchases.find((p) => p.id === 'h-kyoto')!.title, /KIORI/);
+  assert.match(routeDays.find((d) => d.date === '2026-11-02')!.origin, /KIORI/);
 });
 
 test('confirmed arrivals and hotel departures propagate into the main daily maps', () => {
@@ -169,6 +175,20 @@ test('confirmed arrivals and hotel departures propagate into the main daily maps
   assert.match(
     baseRouteDays.find((d) => d.date === '2026-11-01')!.stops[0].detail,
     /до 10:00/,
+  );
+  const kyotoArrival = baseRouteDays.find((d) => d.date === '2026-11-01')!;
+  assert.match(kyotoArrival.hotel, /ATO Hotel/);
+  assert.equal(kyotoArrival.stops[2].query, bookedHotels.kyoto.query);
+  assert.match(kyotoArrival.stops[2].detail, /после 16:00/);
+  assert.equal(kyotoArrival.stops[3].time, '16:45–18:30');
+  for (const date of ['2026-11-02', '2026-11-03', '2026-11-04', '2026-11-05'])
+    assert.equal(
+      baseRouteDays.find((d) => d.date === date)!.origin,
+      bookedHotels.kyoto.query,
+    );
+  assert.doesNotMatch(
+    JSON.stringify(baseRouteDays.filter((d) => d.date >= '2026-11-01' && d.date <= '2026-11-05')),
+    /KIORI/,
   );
   assert.match(purchases.find((p) => p.id === 'f-moscow')!.note, /38 ч 05 мин/);
   assert.doesNotMatch(

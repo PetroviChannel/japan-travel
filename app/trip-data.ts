@@ -565,13 +565,13 @@ export const stops = [
     name: 'Киото',
     date: '1–5 нояб.',
     nights: '4 ночи',
-    text: 'Храмы, Гион и Арасияма без спешки.',
+    text: 'ATO Hotel Kyoto у Sanjo, храмы, Гион и Арасияма.',
   },
   {
     name: 'Фудзикавагутико',
     date: '5–6 нояб.',
     nights: '1 ночь',
-    text: 'Yamagishi Ryokan, онсэн в рёкане и велосипеды у озера.',
+    text: 'Планируем Villa House на Airbnb, прогулки и велосипеды у озера.',
   },
   {
     name: 'Токио',

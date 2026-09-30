@@ -138,33 +138,3 @@ export const kawaPairs: OnsenMapPair[] = [
   walk('kashiwaya', 'mifujien', 2, 26),
   shuttle('kashiwaya', 'около 5 минут пешком'),
 ];
-
-// The main itinerary now has a single chosen stay; comparison research above is separate.
-export const mainKawaHotels = kawaHotels.filter(
-  (hotel) => hotel.id === 'yamagishi',
-);
-export const mainKawaBaths: OnsenMapBath[] = [
-  {
-    id: 'yamagishi-onsen',
-    name: 'Онсэн Yamagishi · в нашем рёкане',
-    query: 'Yamagishi Ryokan Kawaguchiko',
-    entryYen: 1500,
-    description:
-      'Общие термальные купальни в самом рёкане: внутренние и открытые, часть с видом на озеро. Мужчины и женщины отдельно, распределение купален меняется. Для проживающих вход включён.',
-    extrasLabel:
-      'Доплата за вход ¥0 для гостей Yamagishi. Налог ¥300 на двоих уже включён в указанную цену номера. ¥1500 — дневной тариф для сторонних посетителей, к нашей ночёвке он не прибавляется.',
-    hours:
-      'Для проживающих с заезда 15:00 до выезда 10:00, кроме уборки 00:00–01:00. Проверено по официальному сайту 9 сентября 2026.',
-    sourceUrl: 'https://yamagisi.jp/hot_spring.html',
-  },
-  ...kawaBaths.filter((bath) => bath.id === 'mifujien'),
-];
-export const mainKawaPairs: OnsenMapPair[] = [
-  {
-    ...walk('yamagishi', 'yamagishi-onsen', 0, 0),
-    entryYenForTwo: 0,
-    travelLabel: 'В нашем рёкане. После заселения не нужно никуда ехать.',
-    distanceNote: 'Общий онсэн включён в проживание, багаж остаётся в номере.',
-  },
-  walk('yamagishi', 'mifujien', 1.3, 18),
-];

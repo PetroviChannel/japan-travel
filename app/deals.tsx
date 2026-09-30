@@ -118,9 +118,10 @@ export default function Deals({
         <div className="section-intro">
           <h2>Trip.com или российский сервис?</h2>
           <p>
-            Проверка 8 сентября 2026. Два взрослых, один номер, указанные даты.
-            У двух проверенных отелей выигрывает Trip.com. Это не проверка всех
-            отелей на всех сайтах.
+            Сравнение Токио проверено 8 сентября 2026: два взрослых, один
+            номер, указанные даты. Отель Киото уже забронирован; его сумма
+            берётся из личного бюджета. Цены Токио перед покупкой нужно
+            перепроверить.
           </p>
         </div>
         <Table>
@@ -176,41 +177,26 @@ export default function Deals({
             </TableRow>
             <TableRow>
               <TableCell>
-                <strong>KIORI Exec Gojo · Киото</strong>
-                <small>1–5 ноября · 4 ночи · Trip.com</small>
+                <strong>{bookedHotels.kyoto.title} · Киото</strong>
+                <small>1–5 ноября · 4 ночи · забронировано</small>
               </TableCell>
-              <TableCell className="winner">25 544 ₽</TableCell>
-              <TableCell>Местный налог проверить отдельно</TableCell>
+              <TableCell className="winner">
+                {rub(records['h-kyoto'].actual ?? records['h-kyoto'].plan)}
+              </TableCell>
+              <TableCell>Фактическая сумма — во вкладке «Покупки»</TableCell>
               <TableCell>
-                <Link url="https://ru.trip.com/hotels/detail/?cityId=734&hotelId=131589475&checkIn=2026-11-01&checkOut=2026-11-05&adult=2&crn=1&curr=RUB">
+                <Link url={bookedHotels.kyoto.link}>
                   Trip.com
-                </Link>
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>
-                KIORI Exec Gojo · Островок
-                <small>В ссылке старое название WBF</small>
-              </TableCell>
-              <TableCell>30 746 ₽ + ¥1 600</TableCell>
-              <TableCell>
-                {expired
-                  ? 'Промокод истёк'
-                  : '28 594 ₽ + ¥1 600 с ТЕПЛО · расчёт'}
-              </TableCell>
-              <TableCell>
-                <Link url="https://ostrovok.ru/hotel/japan/kyoto/mid9172051/hotel_wbf_kyoto_horikawa_gojo/?dates=01.11.2026-05.11.2026&guests=2">
-                  Островок
                 </Link>
               </TableCell>
             </TableRow>
           </TableBody>
         </Table>
         <p className="form-hint">
-          У KIORI описания комнат отличаются: 17–19 м² на Trip.com и 23 м² на
-          Островке. Сравнение не полностью равнозначно. У Horidome небольшая
-          кровать semi-double: на другом сервисе указано 110–120 см. До оплаты
-          проверьте, подходит ли вам размер.
+          В ATO Hotel забронирован Double 11 м² с одной двуспальной кроватью,
+          без питания. У Horidome небольшая кровать semi-double: на другом
+          сервисе указано 110–120 см. До оплаты проверьте, подходит ли вам
+          размер.
         </p>
       </section>
       <div className="savings-grid">
