@@ -5,6 +5,15 @@ const yen = (amount: number) => Math.round(amount * 0.552789);
 
 // IDs identify budget slots, so existing personal amounts and payment marks survive.
 export const mainPurchaseUpdates: Record<string, Partial<Purchase>> = {
+  'h-tokyo': {
+    title: bookedHotels.tokyo.title,
+    price: 27000,
+    kind: 'quote',
+    note: 'Забронирован 6–10 ноября 2026, 4 ночи на двоих за 27 000 ₽ по сообщению пользователя. Адрес: 2-9-4 Nihonbashi Horidomecho, Chuo-ku, Tokyo. Свой санузел; станция Ningyocho рядом, линии Hibiya и Asakusa. Стандартный заезд с 15:00, выезд до 10:00. Категория номера, питание, отмена и факт оплаты — по подтверждению брони.',
+    link: bookedHotels.tokyo.link,
+    linkLabel: 'Страница забронированного отеля',
+    extra: undefined,
+  },
   'f-moscow': {
     note: 'Купленные рейсы, время местное: 20.10 22:00 SVO → 21.10 11:50 HGH, JD608; 22.10 08:30 HGH → 11:10 HKG, HX129; 22.10 14:25 HKG → 18:05 OKA, UO844. Вся дорога 38 ч 05 мин. Условия пересадок и норму багажа сверять по билетам. Фактическая сумма сохранена в бюджете.',
   },

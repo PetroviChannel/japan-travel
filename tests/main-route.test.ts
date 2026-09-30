@@ -137,7 +137,7 @@ test('confirmed hotel identities and links change without changing original budg
   }
   assert.equal(
     Math.round(purchases.reduce((sum, p) => sum + p.price, 0) * 100),
-    43143811,
+    42871558,
   );
   assert.match(
     legacyPurchases.find((p) => p.id === 'h-naha')!.title,

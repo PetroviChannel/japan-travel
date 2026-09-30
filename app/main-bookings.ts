@@ -4,6 +4,12 @@ const hotelLink = (id: number, from: string, to: string) =>
   `https://ru.trip.com/hotels/detail/?hotelId=${id}&checkIn=${from}&checkOut=${to}&adult=2&crn=1&curr=RUB&locale=ru-RU`;
 
 export const bookedHotels = {
+  tokyo: {
+    title: 'APA Hotel Ningyocho Ekikita',
+    query:
+      'APA Hotel Ningyocho Ekikita, 2-9-4 Nihonbashi Horidomecho, Chuo-ku, Tokyo',
+    link: 'https://travel.yandex.ru/hotels/tokyo/apa-hotel-ningyocho-ekikita/?adults=2&checkinDate=2026-11-06&checkoutDate=2026-11-10&roomCount=1',
+  },
   transit: {
     title: 'Hangzhou Xiaoshan International Airport Urba Hotel',
     query:
@@ -44,6 +50,10 @@ export const plannedFujiStay = {
 export function updateBookedDay(day: RouteDay): RouteDay {
   const replaceHotel = (text: string) =>
     text
+      .replaceAll('Hotel Horidome Villa Tokyo', bookedHotels.tokyo.query)
+      .replaceAll('Horidome Villa', bookedHotels.tokyo.title)
+      .replaceAll('От Horidome', 'От APA Ningyocho')
+      .replaceAll('До Horidome', 'До APA Ningyocho')
       .replaceAll('Mr.KINJO in MIEGUSUKU Naha Okinawa', bookedHotels.naha.query)
       .replaceAll(
         'nippori Osaka Nishitengachaya Guesthouse Osaka',
@@ -197,5 +207,19 @@ export function updateBookedDay(day: RouteDay): RouteDay {
         'От ATO Hotel выбрать путь через Sanjo и Kiyomizu-Gojo либо подходящий автобус, затем пешком в гору к Киёмидзу. На выбранное утро сверить маршрут; оставлен час с запасом.',
       leg: 'ATO Hotel → Киёмидзу: транспорт и подъём по карте',
     };
+  if (day.date >= '2026-11-06' && day.date <= '2026-11-10') {
+    next.hotel = `${bookedHotels.tokyo.title} · забронирован 6–10 ноября · 27 000 ₽`;
+  }
+  if (day.date === '2026-11-06') {
+    const arrival = next.stops.find((stop) =>
+      stop.purchaseIds?.includes('h-tokyo'),
+    );
+    if (arrival) {
+      arrival.query = bookedHotels.tokyo.query;
+      arrival.detail =
+        'Из Синдзюку по Toei Shinjuku Line до Bakuro-yokoyama, затем пешком около 10–15 минут к забронированному APA Hotel Ningyocho Ekikita, 2-9-4 Nihonbashi Horidomecho. Сверить выход и путь по карте с чемоданами. Бронь 6–10 ноября на двоих за 27 000 ₽; стандартный заезд с 15:00, выезд до 10:00. Сегодня заселение и ужин, основные прогулки в Токио — 7–9 ноября.';
+      arrival.leg = 'Синдзюку → Bakuro-yokoyama → APA Ningyocho';
+    }
+  }
   return next;
 }
